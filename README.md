@@ -14,7 +14,9 @@ Le jeu Snake en C comportera les fonctionnalités suivantes :
 
 3. **Gestion des collisions :** Le jeu détectera les collisions entre le serpent et les bords de l'écran ainsi que les collisions avec lui-même, mettant fin à la partie dans ces cas.
 
-4. **Mise en pause :** L'utilisateur pourra mettre en pause le jeu en appuyant sur la touche ```ESPACE``` et arrêter la partie avec la touche ```ESC```.
+4. **Mise en pause :** L'utilisateur pourra mettre en pause le jeu en appuyant sur la touche <div style="color:red; border:1px solid red; padding:10px;">
+    ESPACE
+</div> et arrêter la partie avec la touche ```ESC```.
 
 5. **Système de score :** Un mécanisme de suivi du score sera mis en place pour enregistrer la performance du joueur.
 
