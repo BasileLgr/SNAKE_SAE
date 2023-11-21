@@ -74,3 +74,4 @@ tags
 [._]*.un~
 
 /.idea
+/ExecutableUnix
