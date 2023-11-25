@@ -1,29 +1,21 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include <graph.h>
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
+#define TAILLE_X 40
+#define TAILLE_Y 60
 
-int main (void){
-    int x,y;
-    int curseur;
-
-    InitialiserGraphique();
-    CreerFenetre(0,0,SCREEN_WIDTH,SCREEN_HEIGHT);
-    ChoisirTitreFenetre("Snake");
-    ChoisirEcran(2 );
-    ChargerImageFond ("Images/pinguin.png");
-    CopierZone(2,0,0,0,SCREEN_WIDTH,SCREEN_HEIGHT,0,0);
-
-    curseur = ChargerSprite("Images/Curseur.png");
-
-    ChoisirEcran(0);
-    while (True) {
-        x=_X;
-        y=_Y;
-
-        if (SourisCliquee()){
-            return EXIT_SUCCESS;
+int main (void) {
+    int grille[TAILLE_X][TAILLE_Y];
+    int a =1;
+    for (int i = 0; i < TAILLE_X; i++) {
+        for (int j = 0; j < TAILLE_Y; j++) {
+            grille[i][j] = a;
+            a++;
         }
+    }
+    for (int i = 0; i < TAILLE_X; i++) {
+        for (int j = 0; j < TAILLE_Y; j++) {
+            printf("%4.d ", grille[i][j]);
+        }
+        printf("\n");
     }
 }
