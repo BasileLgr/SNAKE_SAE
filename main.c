@@ -1,21 +1,12 @@
 #include <stdlib.h>
 #include <stdio.h>
-#define TAILLE_X 40
-#define TAILLE_Y 60
+#include <graph.h>
+#define NB_COLONNES 60
+#define NB_LIGNES 40
 
 int main (void) {
-    int grille[TAILLE_X][TAILLE_Y];
-    int a =1;
-    for (int i = 0; i < TAILLE_X; i++) {
-        for (int j = 0; j < TAILLE_Y; j++) {
-            grille[i][j] = a;
-            a++;
-        }
-    }
-    for (int i = 0; i < TAILLE_X; i++) {
-        for (int j = 0; j < TAILLE_Y; j++) {
-            printf("%4.d ", grille[i][j]);
-        }
-        printf("\n");
-    }
+    InitialiserGraphique();
+    CreerFenetre(10, 10, NB_COLONNES*10, NB_LIGNES*10);
+    ChoisirEcran(1);
+    return EXIT_SUCCESS;
 }
