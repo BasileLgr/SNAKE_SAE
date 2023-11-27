@@ -1,21 +1,46 @@
 #include <stdlib.h>
 #include <stdio.h>
-#define TAILLE_X 40
-#define TAILLE_Y 60
+#include <graph.h>
+#define NB_LIGNES 40
+#define NB_COLONNES 60
+#define TAILLE_CASE 13
+#define DECALAGE_MENU_DG 80
+#define DECALAGE_MENU_BAS 60
+#define CYCLE 1000000L
 
-int main (void) {
-    int grille[TAILLE_X][TAILLE_Y];
-    int a =1;
-    for (int i = 0; i < TAILLE_X; i++) {
-        for (int j = 0; j < TAILLE_Y; j++) {
-            grille[i][j] = a;
-            a++;
+int main() {
+    char chaine[240];
+    int position = 0;
+    for (int i = 1; i <= 59; ++i) {
+        position += sprintf(chaine + position, "%02d ", i);
+    }
+    chaine[position - 1] = '\0';
+    InitialiserGraphique();
+    CreerFenetre(200,80,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
+    ChoisirTitreFenetre("Snake");
+    ChoisirCouleurDessin(CouleurParNom("black"));
+    RemplirRectangle(0,0,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
+    ChoisirCouleurDessin(CouleurParComposante(25,200,30));
+    RemplirRectangle(40,15,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
+    ChoisirCouleurDessin(CouleurParNom("white"));
+    EcrireTexte(40,570,"00:00",2);
+    unsigned long suivant = Microsecondes() + CYCLE;
+    char seconde = '1';
+    while (seconde<'9'+1) {
+
+        if (Microsecondes() > suivant) {
+            ChoisirCouleurDessin(CouleurParNom("black"));
+            RemplirRectangle(40,540,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
+            ChoisirCouleurDessin(CouleurParNom("white"));
+            EcrireTexte(95,570,&seconde,2);
+            EcrireTexte(40,570,"00:0",2);
+            ChoisirCouleurDessin(CouleurParNom("black"));
+            RemplirRectangle(110,540,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
+            suivant = Microsecondes() + CYCLE;
+            seconde++;
         }
     }
-    for (int i = 0; i < TAILLE_X; i++) {
-        for (int j = 0; j < TAILLE_Y; j++) {
-            printf("%4.d ", grille[i][j]);
-        }
-        printf("\n");
-    }
+    Touche();
+    FermerGraphique();
+    return EXIT_SUCCESS;
 }
