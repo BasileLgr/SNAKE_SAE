@@ -76,3 +76,4 @@ tags
 /.idea
 /ExecutableUnix
 /Executables/
+.DS_Store
