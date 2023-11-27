@@ -6,8 +6,7 @@
 #define TAILLE_CASE 13
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
-#define CYCLE 1000000L
-#define CYCLE_MINUTE 60000000L
+#define CYCLE 100000L
 
 int main() {
     char chaine[180];
@@ -24,15 +23,26 @@ int main() {
     ChoisirCouleurDessin(CouleurParComposante(25,200,30));
     RemplirRectangle(40,15,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
     ChoisirCouleurDessin(CouleurParNom("white"));
-    EcrireTexte(40,570,"00:",2);
+
     unsigned long suivant = Microsecondes() + CYCLE;
     int i = 0;
+    int a = 0;
     while (1){
         if (Microsecondes() > suivant) {
             ChoisirCouleurDessin(CouleurParNom("black"));
+            RemplirRectangle(45, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+            ChoisirCouleurDessin(CouleurParNom("white"));
+            EcrireTexte(45, 570, &chaine[a], 2);
+            ChoisirCouleurDessin(CouleurParNom("black"));
+            RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+
+            ChoisirCouleurDessin(CouleurParNom("white"));
+            EcrireTexte(75, 570,":", 2);
+
+            ChoisirCouleurDessin(CouleurParNom("black"));
             RemplirRectangle(82, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
             ChoisirCouleurDessin(CouleurParNom("white"));
-            EcrireTexte(82, 570, &chaine[i], 2);
+            EcrireTexte(84, 570, &chaine[i], 2);
             i = i+3; //décalage dans le tableau
             ChoisirCouleurDessin(CouleurParNom("black"));
             RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
@@ -40,6 +50,7 @@ int main() {
         }
         if (i == 180){
             i = 0;
+            a = a+3;
         }
     }
     Touche();
