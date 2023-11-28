@@ -8,21 +8,31 @@
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
 
-int main() {
+int main(void) {
+
     char chaine[180];
     int position = 0;
     for (int i = 0; i <= 59; ++i) {
         position += sprintf(chaine + position, "%02d ", i);
     }
     chaine[position - 1] = '\0';
+
     InitialiserGraphique();
     CreerFenetre(200,80,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
     ChoisirTitreFenetre("Snake");
     ChoisirCouleurDessin(CouleurParNom("black"));
     RemplirRectangle(0,0,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
-    ChoisirCouleurDessin(CouleurParComposante(25,200,30));
+    ChoisirCouleurDessin(CouleurParComposante(78,184,25));
     RemplirRectangle(40,15,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
-    ChoisirCouleurDessin(CouleurParNom("white"));
+    ChoisirCouleurDessin(CouleurParComposante(170,234,12));
+    for (int j = 1; j < NB_COLONNES; ++j) {
+        DessinerSegment(40 + TAILLE_CASE * j, 15, 40 + TAILLE_CASE * j, NB_LIGNES * TAILLE_CASE + 15);
+    }
+    for (int j = 1; j < NB_LIGNES; ++j) {
+        DessinerSegment(40, 15 + TAILLE_CASE * j, NB_COLONNES * TAILLE_CASE + 40, 15 + TAILLE_CASE * j);
+    }
+
+
 
     unsigned long suivant = Microsecondes() + CYCLE;
     int i = 0;
@@ -44,9 +54,13 @@ int main() {
             ChoisirCouleurDessin(CouleurParNom("white"));
             EcrireTexte(84, 570, &chaine[i], 2);
             i = i+3; //décalage dans le tableau
+
             ChoisirCouleurDessin(CouleurParNom("black"));
             RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
             suivant = Microsecondes() + CYCLE;
+
+            ChoisirCouleurDessin(CouleurParNom("white"));
+            EcrireTexte(700, 570,"0000000", 2);
         }
         if (i == 180){
             i = 0;
