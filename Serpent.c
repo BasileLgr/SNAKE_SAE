@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <graph.h>
 
-int main (void) {
+void fonctionSerpent () {
     printf ("test");
-    return EXIT_SUCCESS;
 }

@@ -9,7 +9,7 @@
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
 
-int main(void) {
+int main (void) {
 
     int compteur_quadrillage;
     int compteur_valeur_seconde;

@@ -1,5 +1,5 @@
-#ifndef FOND_H
-#define FOND_H
+#ifndef MAIN_H
+#define MAIN_H
 
 #define NB_LIGNES 40
 #define NB_COLONNES 60
