@@ -6,7 +6,7 @@
 #define TAILLE_CASE 13
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
-#define CYCLE 100000L
+#define CYCLE 1000000L
 
 int main() {
     char chaine[180];
