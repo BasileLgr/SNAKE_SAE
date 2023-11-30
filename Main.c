@@ -67,7 +67,7 @@ int main (void) {
 
         if (position_seconde== 60) {
             position_seconde = 0;
-            position_minute = position_minute+1;
+            position_minute++;
         }
     }
     Touche();
