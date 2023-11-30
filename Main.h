@@ -9,6 +9,5 @@
 #define CYCLE 1000000L
 
 int main (void);
-void formatMinutesSecondesString(char *result, int totalSecondes);
 
 #endif
