@@ -9,18 +9,30 @@
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
 
+void formatMinutesSecondesString (char *result, int totalSecondes) {
+    int minutes = totalSecondes / 60;
+    int secondes = totalSecondes % 60;
+
+    sprintf (result, "%02d:%02d", minutes, secondes);
+}
+
 int main (void) {
 
+    int totalSecondes = 125;
+    char timeString[6];
+    formatMinutesSecondesString(timeString, totalSecondes);
     int compteur_quadrillage;
     int compteur_valeur_seconde;
-    char chaine[180]; //Chaîne de caractère contenant les valeurs de 00 à 59 pour le temps
+    //char chaine[180]; //Chaîne de caractère contenant les valeurs de 00 à 59 pour le temps
     int position = 0;
-    for (compteur_valeur_seconde = 0; compteur_valeur_seconde <= 59; ++compteur_valeur_seconde) {
-        position += sprintf(chaine + position, "%02d ", compteur_valeur_seconde);
-    }
-    chaine[position - 1] = '\0';
+
+    //for (compteur_valeur_seconde = 0; compteur_valeur_seconde <= 59; ++compteur_valeur_seconde) {
+    //    position += sprintf(chaine + position, "%02d ", compteur_valeur_seconde);
+    //}
+    //chaine[position - 1] = '\0';
 
     InitialiserGraphique();
+
     //Création de la fenêtre de jeu
     CreerFenetre(200,80,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
     ChoisirTitreFenetre("Snake");
@@ -48,31 +60,39 @@ int main (void) {
         if (Microsecondes() > suivant) {
 
             //Affichage des secondes
-            ChoisirCouleurDessin(CouleurParNom("black"));
-            RemplirRectangle(45, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
-            ChoisirCouleurDessin(CouleurParNom("white"));
-            EcrireTexte(45, 570, &chaine[position_minute], 2);
-            ChoisirCouleurDessin(CouleurParNom("black"));
-            RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+
+            //ChoisirCouleurDessin(CouleurParNom("black"));
+            //RemplirRectangle(45, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+            //ChoisirCouleurDessin(CouleurParNom("white"));
+            //EcrireTexte(45, 570, &chaine[position_minute], 2);
+            //ChoisirCouleurDessin(CouleurParNom("black"));
+            //RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
 
             //Séparation des secondes et des minutes
-            ChoisirCouleurDessin(CouleurParNom("white"));
-            EcrireTexte(75, 570,":", 2);
+
+            //ChoisirCouleurDessin(CouleurParNom("white"));
+            //EcrireTexte(75, 570,":", 2);
 
             //Affichage des minutes
-            ChoisirCouleurDessin(CouleurParNom("black"));
-            RemplirRectangle(82, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
-            ChoisirCouleurDessin(CouleurParNom("white"));
-            EcrireTexte(84, 570, &chaine[position_seconde], 2);
-            position_seconde = position_seconde+3; //décalage dans le tableau
 
-            ChoisirCouleurDessin(CouleurParNom("black"));
-            RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+            //ChoisirCouleurDessin(CouleurParNom("black"));
+            //RemplirRectangle(82, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+            //ChoisirCouleurDessin(CouleurParNom("white"));
+            //EcrireTexte(84, 570, &chaine[position_seconde], 2);
+            //position_seconde = position_seconde+3; //décalage dans le tableau
+
+            //ChoisirCouleurDessin(CouleurParNom("black"));
+            //RemplirRectangle(115, 540, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
+
+            ChoisirCouleurDessin(CouleurParNom("white"));
+            EcrireTexte(84, 570, timeString, 2);
+
             suivant = Microsecondes() + CYCLE;
 
             //Affichage du score (fixe pour le moment)
-            ChoisirCouleurDessin(CouleurParNom("white"));
-            EcrireTexte(700, 570,"0000000", 2);
+
+            //ChoisirCouleurDessin(CouleurParNom("white"));
+            //EcrireTexte(700, 570,"0000000", 2);
         }
 
         //Réinitialisation des secondes et des minutes
