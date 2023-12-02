@@ -9,6 +9,7 @@
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
+#define NOMBRE_POMMES 5
 
 
 int main (void){
@@ -16,6 +17,15 @@ int main (void){
     return EXIT_SUCCESS;
 }
 
+//Fonction pour generer la aleatoirement la ligne des pommes
+int genererLignePommes(){
+    return rand() % 41; // Génère un nombre entre 0 et 40 inclus
+}
+
+//Fonction pour generer la aleatoirement la colonne des pommes
+int genererColonnePommes(){
+    return rand() % 61; // Génère un nombre entre 0 et 60 inclus
+}
 
 void fonctionsFond() {
 
@@ -24,6 +34,8 @@ void fonctionsFond() {
     int position_minute = 0;
     int compteur_quadrillage;
     int OnOff=1;
+    int tableau[NB_LIGNES][NB_COLONNES];
+    int CompteurPommes;
 
     InitialiserGraphique();
 
@@ -43,6 +55,11 @@ void fonctionsFond() {
     }
     for (compteur_quadrillage = 1; compteur_quadrillage < NB_LIGNES; ++compteur_quadrillage) {
         DessinerSegment(40, 15 + TAILLE_CASE * compteur_quadrillage, NB_COLONNES * TAILLE_CASE + 40, 15 + TAILLE_CASE * compteur_quadrillage);
+    }
+
+    //Mise en places des pommes initiales
+    for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
+        tableau[genererLignePommes()][genererColonnePommes()] = 1;
     }
 
     //Boucle pour le timer
@@ -79,6 +96,17 @@ void fonctionsFond() {
             position_minute++;
         }
 
+        //Gestion perte de pomme
+        //if (perte de pomme) {
+        //    CompteurPommes--;
+        //}
+
+        //Apparition d'une nouvelle pomme
+        if (CompteurPommes < 5){
+            tableau[genererLignePommes()][genererColonnePommes()] = 1;
+            CompteurPommes++;
+        }
+
         //Fermeture de la fenêtre si on appuie sur échap
         if (ToucheEnAttente() && Touche() == XK_Escape) {
             FermerGraphique();
@@ -91,6 +119,12 @@ void fonctionsFond() {
             while (OnOff==0){
                 if (ToucheEnAttente() && Touche() == XK_space) {
                     OnOff=1;
+                }
+
+                //Si jamais on appuie sur échap pendant la pause cela quitte aussi le jeu
+                if (ToucheEnAttente() && Touche() == XK_Escape) {
+                    FermerGraphique();
+                    exit(EXIT_SUCCESS);
                 }
             }
         }
