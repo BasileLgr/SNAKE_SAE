@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
+#include "Fond.h"
 
 #define NB_LIGNES 40
 #define NB_COLONNES 60
@@ -9,12 +10,20 @@
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
 
-int main (void) {
+
+int main (void){
+    fonctionsFond();
+    return EXIT_SUCCESS;
+}
+
+
+void fonctionsFond() {
 
     unsigned long suivant = Microsecondes() + CYCLE;
     int position_seconde = 0;
     int position_minute = 0;
     int compteur_quadrillage;
+    int OnOff=1;
 
     InitialiserGraphique();
 
@@ -28,6 +37,7 @@ int main (void) {
     ChoisirCouleurDessin(CouleurParComposante(170,234,12));
 
     //Mise en place du quadrillage de l'écran de jeu
+    ChoisirEcran (0);
     for (compteur_quadrillage = 1; compteur_quadrillage < NB_COLONNES; ++compteur_quadrillage) {
         DessinerSegment(40 + TAILLE_CASE * compteur_quadrillage, 15, 40 + TAILLE_CASE * compteur_quadrillage, NB_LIGNES * TAILLE_CASE + 15);
     }
@@ -36,7 +46,7 @@ int main (void) {
     }
 
     //Boucle pour le timer
-    while (1){
+    while (OnOff==1){
 
         if (Microsecondes() > suivant) {
 
@@ -64,13 +74,27 @@ int main (void) {
         }
 
         //Réinitialisation des secondes et des minutes
-
         if (position_seconde== 60) {
             position_seconde = 0;
             position_minute++;
         }
+
+        //Fermeture de la fenêtre si on appuie sur échap
+        if (ToucheEnAttente() && Touche() == XK_Escape) {
+            FermerGraphique();
+            exit(EXIT_SUCCESS);
+        }
+
+        //Pause du jeu si on appuie sur espace
+        if (ToucheEnAttente() && Touche() == XK_space) {
+            OnOff=0;
+            while (OnOff==0){
+                if (ToucheEnAttente() && Touche() == XK_space) {
+                    OnOff=1;
+                }
+            }
+        }
+
+
     }
-    Touche();
-    FermerGraphique();
-    return EXIT_SUCCESS;
 }

@@ -1,6 +1,6 @@
-#ifndef MAIN_H
-#define MAIN_H
+#ifndef FOND_H
+#define FOND_H
 
-int main (void);
+void fonctionsFond();
 
 #endif
