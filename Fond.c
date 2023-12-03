@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <graph.h>
 #include "Fond.h"
+#include <time.h>
 
 #define NB_LIGNES 40
 #define NB_COLONNES 60
@@ -11,20 +12,25 @@
 #define CYCLE 1000000L
 #define NOMBRE_POMMES 5
 
+//Gestion de l'aléatoire
+void initialiserAleatoire() {
+    srand((unsigned int)time(NULL));
+}
 
 int main (void){
+    initialiserAleatoire();
     fonctionsFond();
     return EXIT_SUCCESS;
 }
 
 //Fonction pour generer la aleatoirement la ligne des pommes
 int genererLignePommes(){
-    return rand() % 41; // Génère un nombre entre 0 et 40 inclus
+    return rand() % 40; // Génère un nombre entre 0 et 40
 }
 
 //Fonction pour generer la aleatoirement la colonne des pommes
 int genererColonnePommes(){
-    return rand() % 61; // Génère un nombre entre 0 et 60 inclus
+    return rand() % 60; // Génère un nombre entre 0 et 60
 }
 
 void fonctionsFond() {
@@ -49,7 +55,6 @@ void fonctionsFond() {
     ChoisirCouleurDessin(CouleurParComposante(170,234,12));
 
     //Mise en place du quadrillage de l'écran de jeu
-    ChoisirEcran (0);
     for (compteur_quadrillage = 1; compteur_quadrillage < NB_COLONNES; ++compteur_quadrillage) {
         DessinerSegment(40 + TAILLE_CASE * compteur_quadrillage, 15, 40 + TAILLE_CASE * compteur_quadrillage, NB_LIGNES * TAILLE_CASE + 15);
     }
@@ -59,14 +64,21 @@ void fonctionsFond() {
 
     //Mise en places des pommes initiales
     for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
-        tableau[genererLignePommes()][genererColonnePommes()] = 1;
+        int ligne = genererLignePommes();
+        int colonne = genererColonnePommes();
+        //Evite de générer deux pommes au même endroit
+        if (tableau[ligne][colonne] == 1) {
+            --CompteurPommes;
+            continue;
+        }
+        tableau[ligne][colonne] = 1;
+        ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
     }
 
     //Boucle pour le timer
     while (OnOff==1){
 
         if (Microsecondes() > suivant) {
-
             //Mise en place de la chaîne de caractères pour le timer
             char temps[10];
             sprintf (temps, "%02d:%02d", position_minute, position_seconde);
@@ -96,10 +108,22 @@ void fonctionsFond() {
             position_minute++;
         }
 
-        //Gestion perte de pomme
-        //if (perte de pomme) {
-        //    CompteurPommes--;
-        //}
+        //Gestion de la triche, si on appuie sur "t" on génère une pomme
+        if (ToucheEnAttente() && Touche() == XK_t) {
+            int ligne = genererLignePommes();
+            int colonne = genererColonnePommes();
+            //Evite de générer deux pommes au même endroit
+            if (tableau[ligne][colonne] == 1) {
+                --CompteurPommes;
+                continue;
+            }
+            tableau[ligne][colonne] = 1;
+            ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+        }
+
+        if (ToucheEnAttente() && Touche() == XK_t) {
+            CompteurPommes--;
+        }
 
         //Apparition d'une nouvelle pomme
         if (CompteurPommes < 5){
