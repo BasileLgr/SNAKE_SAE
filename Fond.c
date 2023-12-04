@@ -120,16 +120,21 @@ void fonctionsFond() {
             int colonne = genererColonnePommes();
 
             //Evite de générer deux pommes au même endroit
-            if (tableau[ligne][colonne] == 1) {
-                --CompteurPommes;
-                continue;
+            if (tableau[ligne][colonne] != 1) {
+                //Marque la position de la pomme
+                tableau[ligne][colonne] = 1;
+
+                //Affiche la pomme
+                ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
             }
+            else {
+                int ligne = genererLignePommes();
+                int colonne = genererColonnePommes();
+                tableau[ligne][colonne] = 1;
 
-            //Marque la position de la pomme
-            tableau[ligne][colonne] = 1;
-
-            //Affiche la pomme
-            ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+                //Affiche la pomme
+                ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+            }
         }
 
         //Apparition d'une nouvelle pomme
