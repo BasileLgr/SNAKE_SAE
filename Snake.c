@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
-#include "Fond.h"
+#include "Snake.h"
 #include <time.h>
 
 #define NB_LIGNES 40
@@ -18,9 +18,10 @@ void initialiserAleatoire() {
     srand((unsigned int)time(NULL));
 }
 
+//Main
 int main (void){
     initialiserAleatoire();
-    fonctionsFond();
+    fonctionsSnake();
     return EXIT_SUCCESS;
 }
 
@@ -34,16 +35,23 @@ int genererColonnePommes(){
     return rand() % 60; // Génère un nombre entre 0 et 60
 }
 
-void fonctionsFond() {
+//Snake
+void fonctionsSnake() {
 
     unsigned long suivant = Microsecondes() + CYCLE;
+    //Pour le timer
     int position_seconde = 0;
     int position_minute = 0;
+    //Pour afficher le quadrillage
     int compteur_quadrillage;
+    //Interrupteur pour la boucle, permet de mettre en pause le jeu
     int OnOff=1;
+    //Tableau permettant de savoir la position de chaque objet
     int tableau[NB_LIGNES][NB_COLONNES];
+    //Permet de savoir en temps réel le nombre de pommes sur le terrain (hors triche)
     int CompteurPommes;
 
+    //Ouverture de la fenêtre graphique
     InitialiserGraphique();
 
     //Création de la fenêtre de jeu
@@ -81,16 +89,17 @@ void fonctionsFond() {
         ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
     }
 
-    //Boucle pour le timer
+    //Boucle pour le timer avec interrupteur pour la pause
     while (OnOff==1){
 
+        //Gestion du temps
         if (Microsecondes() > suivant) {
 
             //Mise en place de la chaîne de caractères pour le timer
             char temps[10];
             sprintf (temps, "%02d:%02d", position_minute, position_seconde);
 
-            //Affichage du fond noir pour le timer
+            //Affichage du fond noir pour actualiser le timer
             ChoisirCouleurDessin(CouleurParNom("black"));
             RemplirRectangle(40, 540, 80, 40);
 
@@ -127,6 +136,7 @@ void fonctionsFond() {
                 //Affiche la pomme
                 ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
             }
+            //Regénère d'autre coordonées pour éviter les doublons
             else {
                 int ligne = genererLignePommes();
                 int colonne = genererColonnePommes();
@@ -137,7 +147,7 @@ void fonctionsFond() {
             }
         }
 
-        //Apparition d'une nouvelle pomme
+        //Apparition d'une nouvelle pomme (ne sert à rien car on ne peut pas perdre de pomme pour l'instant)
         if (CompteurPommes < 5){
             int ligne = genererLignePommes();
             int colonne = genererColonnePommes();
@@ -164,6 +174,8 @@ void fonctionsFond() {
         //Pause du jeu si on appuie sur espace
         if (ToucheEnAttente() && Touche() == XK_space) {
             OnOff=0;
+
+            //Reprise si on rappuie sur espace
             while (OnOff==0){
                 if (ToucheEnAttente() && Touche() == XK_space) {
                     OnOff=1;

@@ -1,7 +1,7 @@
-#ifndef FOND_H
-#define FOND_H
+#ifndef SNAKE_H
+#define SNAKE_H
 
-void fonctionsFond();
+void fonctionsSnake();
 int genererLignePommes();
 int genererColonnePommes();
 
