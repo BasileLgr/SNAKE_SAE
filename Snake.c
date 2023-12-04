@@ -12,6 +12,8 @@
 #define CYCLE 1000000L
 #define NOMBRE_POMMES 5
 #define CYCLE_TOUCHES 100000L
+#define COLONNE_DEPART 30
+#define LIGNE_DEPART 20
 
 //Gestion de l'aléatoire
 void initialiserAleatoire() {
@@ -38,6 +40,8 @@ int genererColonnePommes(){
 //Snake
 void fonctionsSnake() {
 
+    int colonneDepart = COLONNE_DEPART;
+    int ligneDepart = LIGNE_DEPART;
     unsigned long suivant = Microsecondes() + CYCLE;
     //Pour le timer
     int position_seconde = 0;
@@ -61,15 +65,19 @@ void fonctionsSnake() {
     RemplirRectangle(0,0,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
     ChoisirCouleurDessin(CouleurParComposante(78,184,25));
     RemplirRectangle(40,15,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
-    ChoisirCouleurDessin(CouleurParComposante(170,234,12));
 
     //Mise en place du quadrillage de l'écran de jeu
-    for (compteur_quadrillage = 1; compteur_quadrillage < NB_COLONNES; ++compteur_quadrillage) {
-        DessinerSegment(40 + TAILLE_CASE * compteur_quadrillage, 15, 40 + TAILLE_CASE * compteur_quadrillage, NB_LIGNES * TAILLE_CASE + 15);
-    }
-    for (compteur_quadrillage = 1; compteur_quadrillage < NB_LIGNES; ++compteur_quadrillage) {
-        DessinerSegment(40, 15 + TAILLE_CASE * compteur_quadrillage, NB_COLONNES * TAILLE_CASE + 40, 15 + TAILLE_CASE * compteur_quadrillage);
-    }
+    //ChoisirCouleurDessin(CouleurParComposante(170,234,12));
+    //for (compteur_quadrillage = 1; compteur_quadrillage < NB_COLONNES; ++compteur_quadrillage) {
+    //    DessinerSegment(40 + TAILLE_CASE * compteur_quadrillage, 15, 40 + TAILLE_CASE * compteur_quadrillage, NB_LIGNES * TAILLE_CASE + 15);
+    //}
+    //for (compteur_quadrillage = 1; compteur_quadrillage < NB_LIGNES; ++compteur_quadrillage) {
+    //    DessinerSegment(40, 15 + TAILLE_CASE * compteur_quadrillage, NB_COLONNES * TAILLE_CASE + 40, 15 + TAILLE_CASE * compteur_quadrillage);
+    //}
+
+    //Mise en place du serpent
+    ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+    tableau[colonneDepart][ligneDepart] = 2;
 
     //Mise en places des pommes initiales
     for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
@@ -86,7 +94,7 @@ void fonctionsSnake() {
         tableau[ligne][colonne] = 1;
 
         //Affiche les pommes
-        ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+        ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     }
 
     //Boucle pour le timer avec interrupteur pour la pause
@@ -134,7 +142,7 @@ void fonctionsSnake() {
                 tableau[ligne][colonne] = 1;
 
                 //Affiche la pomme
-                ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+                ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
             //Regénère d'autre coordonées pour éviter les doublons
             else {
@@ -143,7 +151,7 @@ void fonctionsSnake() {
                 tableau[ligne][colonne] = 1;
 
                 //Affiche la pomme
-                ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+                ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
         }
 
@@ -162,7 +170,49 @@ void fonctionsSnake() {
             tableau[ligne][colonne] = 1;
 
             //Affiche la pomme
-            ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
+            ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        }
+
+        //Déplacement vers la gauche
+        if (ToucheEnAttente() && Touche() == XK_Left) {
+                tableau[colonneDepart][ligneDepart] = 0;
+                ChoisirCouleurDessin(CouleurParComposante(78, 184, 25));
+                RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE,
+                                 TAILLE_CASE);
+                colonneDepart--;
+                tableau[colonneDepart][ligneDepart] = 2;
+                ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE,
+                             15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        }
+
+        //Déplacement vers la droite
+        if (ToucheEnAttente() && Touche() == XK_Right) {
+            tableau[colonneDepart][ligneDepart] = 0;
+            ChoisirCouleurDessin(CouleurParComposante(78,184,25));
+            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            colonneDepart++;
+            tableau[colonneDepart][ligneDepart] = 2;
+            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        }
+
+        //Déplacement vers le haut
+        if (ToucheEnAttente() && Touche() == XK_Up) {
+            tableau[colonneDepart][ligneDepart] = 0;
+            ChoisirCouleurDessin(CouleurParComposante(78,184,25));
+            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            ligneDepart--;
+            tableau[colonneDepart][ligneDepart] = 2;
+            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        }
+
+        //Déplacement vers le bas
+        if (ToucheEnAttente() && Touche() == XK_Down) {
+            tableau[colonneDepart][ligneDepart] = 0;
+            ChoisirCouleurDessin(CouleurParComposante(78,184,25));
+            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            ligneDepart++;
+            tableau[colonneDepart][ligneDepart] = 2;
+            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Fermeture de la fenêtre si on appuie sur échap
