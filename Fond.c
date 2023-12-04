@@ -11,6 +11,7 @@
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
 #define NOMBRE_POMMES 5
+#define CYCLE_TOUCHES 100000L
 
 //Gestion de l'aléatoire
 void initialiserAleatoire() {
@@ -66,12 +67,17 @@ void fonctionsFond() {
     for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
         int ligne = genererLignePommes();
         int colonne = genererColonnePommes();
+
         //Evite de générer deux pommes au même endroit
         if (tableau[ligne][colonne] == 1) {
             --CompteurPommes;
             continue;
         }
+
+        //Marque la position de la pomme dans le tableau
         tableau[ligne][colonne] = 1;
+
+        //Affiche les pommes
         ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
     }
 
@@ -79,6 +85,7 @@ void fonctionsFond() {
     while (OnOff==1){
 
         if (Microsecondes() > suivant) {
+
             //Mise en place de la chaîne de caractères pour le timer
             char temps[10];
             sprintf (temps, "%02d:%02d", position_minute, position_seconde);
@@ -97,7 +104,6 @@ void fonctionsFond() {
             position_seconde++;
 
             //Affichage du score (fixe pour le moment)
-
             ChoisirCouleurDessin(CouleurParNom("white"));
             EcrireTexte(700, 570,"0000000", 2);
         }
@@ -112,23 +118,36 @@ void fonctionsFond() {
         if (ToucheEnAttente() && Touche() == XK_t) {
             int ligne = genererLignePommes();
             int colonne = genererColonnePommes();
+
             //Evite de générer deux pommes au même endroit
             if (tableau[ligne][colonne] == 1) {
                 --CompteurPommes;
                 continue;
             }
-            tableau[ligne][colonne] = 1;
-            ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
-        }
 
-        if (ToucheEnAttente() && Touche() == XK_t) {
-            CompteurPommes--;
+            //Marque la position de la pomme
+            tableau[ligne][colonne] = 1;
+
+            //Affiche la pomme
+            ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
         }
 
         //Apparition d'une nouvelle pomme
         if (CompteurPommes < 5){
-            tableau[genererLignePommes()][genererColonnePommes()] = 1;
-            CompteurPommes++;
+            int ligne = genererLignePommes();
+            int colonne = genererColonnePommes();
+
+            //Evite de générer deux pommes au même endroit
+            if (tableau[ligne][colonne] == 1) {
+                --CompteurPommes;
+                continue;
+            }
+
+            //Marque la position de la pomme
+            tableau[ligne][colonne] = 1;
+
+            //Affiche la pomme
+            ChargerImage("./images/PommePixel.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, 13, 13);
         }
 
         //Fermeture de la fenêtre si on appuie sur échap
@@ -152,6 +171,5 @@ void fonctionsFond() {
                 }
             }
         }
-
     }
 }
