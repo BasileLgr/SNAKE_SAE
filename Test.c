@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
-#include "Test.h"
+#include "Snake.h"
 #include <time.h>
 
 #define NB_LIGNES 40
@@ -15,6 +15,8 @@
 #define COLONNE_DEPART 30
 #define LIGNE_DEPART 20
 #define COULEUR_FOND 78,184,25
+#define DECALAGE_BANDE_NOIR_GAUCHE 40
+#define DECALAGE_BANDE_NOIR_HAUT 15
 
 //Gestion de l'aléatoire
 void initialiserAleatoire() {
@@ -30,12 +32,12 @@ int main (void){
 
 //Fonction pour generer la aleatoirement la ligne des pommes
 int genererLignePommes(){
-    return rand() % 40; // Génère un nombre entre 0 et 40
+    return rand() % NB_LIGNES; // Génère un nombre entre 0 et le nombre de lignes
 }
 
 //Fonction pour generer la aleatoirement la colonne des pommes
 int genererColonnePommes(){
-    return rand() % 60; // Génère un nombre entre 0 et 60
+    return rand() % NB_COLONNES; // Génère un nombre entre 0 et le nombre de colonnes
 }
 
 //Snake
@@ -65,19 +67,10 @@ void fonctionsSnake() {
     ChoisirCouleurDessin(CouleurParNom("black"));
     RemplirRectangle(0,0,NB_COLONNES*TAILLE_CASE+DECALAGE_MENU_DG,NB_LIGNES*TAILLE_CASE+DECALAGE_MENU_BAS);
     ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
-    RemplirRectangle(40,15,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
-
-    //Mise en place du quadrillage de l'écran de jeu
-    //ChoisirCouleurDessin(CouleurParComposante(170,234,12));
-    //for (compteur_quadrillage = 1; compteur_quadrillage < NB_COLONNES; ++compteur_quadrillage) {
-    //    DessinerSegment(40 + TAILLE_CASE * compteur_quadrillage, 15, 40 + TAILLE_CASE * compteur_quadrillage, NB_LIGNES * TAILLE_CASE + 15);
-    //}
-    //for (compteur_quadrillage = 1; compteur_quadrillage < NB_LIGNES; ++compteur_quadrillage) {
-    //    DessinerSegment(40, 15 + TAILLE_CASE * compteur_quadrillage, NB_COLONNES * TAILLE_CASE + 40, 15 + TAILLE_CASE * compteur_quadrillage);
-    //}
+    RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE,DECALAGE_BANDE_NOIR_HAUT,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
 
     //Mise en place du serpent
-    ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+    ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     tableau[colonneDepart][ligneDepart] = 2;
 
     //Mise en places des pommes initiales
@@ -95,7 +88,7 @@ void fonctionsSnake() {
         tableau[ligne][colonne] = 1;
 
         //Affiche les pommes
-        ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     }
 
     //Boucle pour le timer avec interrupteur pour la pause
@@ -110,7 +103,7 @@ void fonctionsSnake() {
 
             //Affichage du fond noir pour actualiser le timer
             ChoisirCouleurDessin(CouleurParNom("black"));
-            RemplirRectangle(40, 540, 80, 40);
+            RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE, 540, 80, 40);
 
             //Affichage du timer
             ChoisirCouleurDessin(CouleurParNom("white"));
@@ -143,7 +136,7 @@ void fonctionsSnake() {
                 tableau[ligne][colonne] = 1;
 
                 //Affiche la pomme
-                ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+                ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
                 //Regénère d'autre coordonées pour éviter les doublons
             else {
@@ -152,7 +145,7 @@ void fonctionsSnake() {
                 tableau[ligne][colonne] = 1;
 
                 //Affiche la pomme
-                ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+                ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
         }
 
@@ -170,7 +163,7 @@ void fonctionsSnake() {
             tableau[ligne][colonne] = 1;
 
             // Affiche la pomme
-            ChargerImage("./images/PommePixel2.png", 40 + colonne * TAILLE_CASE, 15 + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
 
             // Incrémente le compteur de pommes
             CompteurPommes++;
@@ -180,65 +173,60 @@ void fonctionsSnake() {
         if (ToucheEnAttente() && Touche() == XK_Left) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(78, 184, 25));
-            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             colonneDepart--;
             //Vérifie si il y a une pomme sur la case d'arrivée
             if (tableau[colonneDepart][ligneDepart] == 1) {
                 CompteurPommes--;
-                RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
-                //continue;
+                RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE,
-                         15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Déplacement vers la droite
         if (ToucheEnAttente() && Touche() == XK_Right) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
-            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             colonneDepart++;
             //Vérifie si il y a une pomme sur la case d'arrivée
             if (tableau[colonneDepart][ligneDepart] == 1) {
                 CompteurPommes--;
-                RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
-                //continue;
+                RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Déplacement vers le haut
         if (ToucheEnAttente() && Touche() == XK_Up) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
-            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             ligneDepart--;
             //Vérifie si il y a une pomme sur la case d'arrivée
             if (tableau[colonneDepart][ligneDepart] == 1) {
                 CompteurPommes--;
-                RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
-                //continue;
+                RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Déplacement vers le bas
         if (ToucheEnAttente() && Touche() == XK_Down) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
-            RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+            RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             ligneDepart++;
             //Vérifie si il y a une pomme sur la case d'arrivée
             if (tableau[colonneDepart][ligneDepart] == 1) {
                 CompteurPommes--;
-                RemplirRectangle(40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
-                //continue;
+                RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", 40 + colonneDepart * TAILLE_CASE, 15 + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Fermeture de la fenêtre si on appuie sur échap
