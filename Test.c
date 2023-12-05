@@ -49,8 +49,6 @@ void fonctionsSnake() {
     //Pour le timer
     int position_seconde = 0;
     int position_minute = 0;
-    //Pour afficher le quadrillage
-    int compteur_quadrillage;
     //Interrupteur pour la boucle, permet de mettre en pause le jeu
     int OnOff=1;
     //Tableau permettant de savoir la position de chaque objet
@@ -70,7 +68,7 @@ void fonctionsSnake() {
     RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE,DECALAGE_BANDE_NOIR_HAUT,NB_COLONNES*TAILLE_CASE,NB_LIGNES*TAILLE_CASE);
 
     //Mise en place du serpent
-    ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+    ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     tableau[colonneDepart][ligneDepart] = 2;
 
     //Mise en places des pommes initiales
@@ -88,7 +86,7 @@ void fonctionsSnake() {
         tableau[ligne][colonne] = 1;
 
         //Affiche les pommes
-        ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     }
 
     //Boucle pour le timer avec interrupteur pour la pause
@@ -136,7 +134,7 @@ void fonctionsSnake() {
                 tableau[ligne][colonne] = 1;
 
                 //Affiche la pomme
-                ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+                ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
                 //Regénère d'autre coordonées pour éviter les doublons
             else {
@@ -145,7 +143,7 @@ void fonctionsSnake() {
                 tableau[ligne][colonne] = 1;
 
                 //Affiche la pomme
-                ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+                ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
         }
 
@@ -163,7 +161,7 @@ void fonctionsSnake() {
             tableau[ligne][colonne] = 1;
 
             // Affiche la pomme
-            ChargerImage("./images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
 
             // Incrémente le compteur de pommes
             CompteurPommes++;
@@ -172,6 +170,7 @@ void fonctionsSnake() {
         //Déplacement vers la gauche
         if (ToucheEnAttente() && Touche() == XK_Left) {
             tableau[colonneDepart][ligneDepart] = 0;
+
             ChoisirCouleurDessin(CouleurParComposante(78, 184, 25));
             RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             colonneDepart--;
@@ -181,7 +180,7 @@ void fonctionsSnake() {
                 RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Déplacement vers la droite
@@ -196,7 +195,7 @@ void fonctionsSnake() {
                 RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Déplacement vers le haut
@@ -211,7 +210,7 @@ void fonctionsSnake() {
                 RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Déplacement vers le bas
@@ -226,7 +225,7 @@ void fonctionsSnake() {
                 RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
             }
             tableau[colonneDepart][ligneDepart] = 2;
-            ChargerImage("./images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
         }
 
         //Fermeture de la fenêtre si on appuie sur échap
