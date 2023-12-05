@@ -8,7 +8,8 @@ TARGET = Snake
 all: $(TARGET)
 
 $(TARGET): Snake.c
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) -o Snake $^ $(LDFLAGS)
+
 
 run: $(TARGET)
 	./$(TARGET)
