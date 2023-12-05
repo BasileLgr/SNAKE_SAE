@@ -49,8 +49,6 @@ void fonctionsSnake() {
     //Pour le timer
     int position_seconde = 0;
     int position_minute = 0;
-    //Pour afficher le quadrillage
-    int compteur_quadrillage;
     //Interrupteur pour la boucle, permet de mettre en pause le jeu
     int OnOff=1;
     //Tableau permettant de savoir la position de chaque objet
