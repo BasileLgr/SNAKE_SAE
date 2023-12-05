@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -ansi -pedantic -std=c11
+CFLAGS = -ansi -pedantic
 LDFLAGS = -lgraph
 TARGET = Snake
 
