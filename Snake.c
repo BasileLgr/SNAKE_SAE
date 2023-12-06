@@ -168,7 +168,7 @@ void fonctionsSnake() {
         }
 
         /*Déplacement vers la gauche*/
-        if (ToucheEnAttente() && Touche() == XK_Left) {
+        if (ToucheEnAttente() && (Touche() == XK_Left)) {
                 tableau[colonneDepart][ligneDepart] = 0;
 
                 ChoisirCouleurDessin(CouleurParComposante(78, 184, 25));
@@ -184,7 +184,7 @@ void fonctionsSnake() {
         }
 
         /*Déplacement vers la droite*/
-        if (ToucheEnAttente() && Touche() == XK_Right) {
+        if (ToucheEnAttente() && (Touche() == XK_Right)) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
             RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
@@ -199,7 +199,7 @@ void fonctionsSnake() {
         }
 
         /*Déplacement vers le haut*/
-        if (ToucheEnAttente() && Touche() == XK_Up) {
+        if (ToucheEnAttente() && (Touche() == XK_Up)) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
             RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
@@ -214,7 +214,7 @@ void fonctionsSnake() {
         }
 
         /*Déplacement vers le bas*/
-        if (ToucheEnAttente() && Touche() == XK_Down) {
+        if (ToucheEnAttente() && (Touche() == XK_Down)) {
             tableau[colonneDepart][ligneDepart] = 0;
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
             RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + colonneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
@@ -229,23 +229,23 @@ void fonctionsSnake() {
         }
 
         /*Fermeture de la fenêtre si on appuie sur échap*/
-        if (ToucheEnAttente() && Touche() == XK_Escape) {
+        if (ToucheEnAttente() && (Touche() == XK_Escape)) {
             FermerGraphique();
             exit(EXIT_SUCCESS);
         }
 
         /*Pause du jeu si on appuie sur espace*/
-        if (ToucheEnAttente() && Touche() == XK_space) {
+        if (ToucheEnAttente() && (Touche() == XK_space)) {
             OnOff=0;
 
             /*Reprise si on rappuie sur espace*/
             while (OnOff==0){
-                if (ToucheEnAttente() && Touche() == XK_space) {
+                if (ToucheEnAttente() && (Touche() == XK_space)) {
                     OnOff=1;
                 }
 
                 /*Si jamais on appuie sur échap pendant la pause cela quitte aussi le jeu*/
-                if (ToucheEnAttente() && Touche() == XK_Escape) {
+                if (ToucheEnAttente() && (Touche() == XK_Escape)) {
                     FermerGraphique();
                     exit(EXIT_SUCCESS);
                 }
