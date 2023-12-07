@@ -7,10 +7,11 @@
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
+#define VITESSE_DEPLACEMENT 150000L
 #define NOMBRE_POMMES 5
 #define COLONNE_DEPART 20
 #define LIGNE_DEPART 30
-#define COULEUR_FOND 78,184,25
+#define COULEUR_FOND 78, 184, 25
 #define DECALAGE_BANDE_NOIR_GAUCHE 40
 #define DECALAGE_BANDE_NOIR_HAUT 15
 #define X_SCORE 710
@@ -21,10 +22,10 @@
 #define X_FENETRE_DE_JEU 200
 #define Y_FENETRE_DE_JEU 80
 
+void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]);
 void fonctionsSnake(void);
-void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne);
 void initialiserAleatoire(void);
-int main(void);
-
+void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne);
+void afficherPommes(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne);
 
 #endif

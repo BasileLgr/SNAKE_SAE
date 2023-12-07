@@ -7,6 +7,7 @@
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
+#define VITESSE_DEPLACEMENT 150000L
 #define NOMBRE_POMMES 5
 #define COLONNE_DEPART 20
 #define LIGNE_DEPART 30
@@ -26,7 +27,5 @@ void fonctionsSnake(void);
 void initialiserAleatoire(void);
 void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne);
 void afficherPommes(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne);
-
-
 
 #endif

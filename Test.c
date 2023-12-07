@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
-#include "Test.h"
+#include "Snake.h"
 #include <time.h>
 
 #define NB_LIGNES 40
@@ -10,7 +10,7 @@
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
-#define DEPLACEMENT 500000L
+#define VITESSE_DEPLACEMENT 150000L
 #define NOMBRE_POMMES 5
 #define COLONNE_DEPART 20
 #define LIGNE_DEPART 30
@@ -38,27 +38,6 @@ enum Direction {
     BAS
 };
 
-/* Fonction pour gérer les touches */
-void gestionTouches(int *Direction) {
-    if (ToucheEnAttente()) {
-        int touche = Touche();
-        switch (touche) {
-            case XK_Left:
-                *Direction = GAUCHE;
-                break;
-            case XK_Right:
-                *Direction = DROITE;
-                break;
-            case XK_Up:
-                *Direction = HAUT;
-                break;
-            case XK_Down:
-                *Direction = BAS;
-                break;
-        }
-    }
-}
-
 /* Main */
 int main(void) {
     initialiserAleatoire();
@@ -71,7 +50,7 @@ void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *
     do {
         *ligne = rand() % NB_LIGNES;
         *colonne = rand() % NB_COLONNES;
-    } while (tableau[*ligne][*colonne] == 1); /* Vérifier si la position est déjà occupée par une pomme */
+    } while ((tableau[*ligne][*colonne] == 1) || (tableau[*ligne][*colonne] == 2)); /* Vérifier si la position est déjà occupée par une pomme ou le serpent */
 }
 
 /* Snake */
@@ -79,7 +58,7 @@ void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
     unsigned long suivant = Microsecondes() + CYCLE;
-    unsigned long deplacement = Microsecondes() + DEPLACEMENT;
+    unsigned long deplacement = Microsecondes() + VITESSE_DEPLACEMENT;
     /* Pour le timer */
     int position_seconde = 0;
     int position_minute = 0;
@@ -126,7 +105,7 @@ void fonctionsSnake(void) {
         genererPositionPomme(tableau, &ligne, &colonne);
 
         /* Evite de générer deux pommes au même endroit */
-        if (tableau[ligne][colonne] == 1 || tableau[ligne][colonne] == 2) {
+        if ((tableau[ligne][colonne] == 1) || (tableau[ligne][colonne] == 2)) {
             tableau[ligne][colonne] = 0;
             --CompteurPommes;
             continue;
@@ -147,7 +126,6 @@ void fonctionsSnake(void) {
 
     /* Boucle principale du jeu */
     while (OnOff == 1) {
-        gestionTouches(&Direction);
 
         /* Déplacement automatique du serpent */
         if (Microsecondes() > suivant) {
@@ -189,15 +167,29 @@ void fonctionsSnake(void) {
                 /* Incrémente le compteur de pommes */
                 CompteurPommes++;
             }
-            
+
         }
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
+
             deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
-            deplacement = Microsecondes() + DEPLACEMENT;
+            deplacement = Microsecondes() + VITESSE_DEPLACEMENT;
         }
         if (ToucheEnAttente()) {
             int touche = Touche();
+
+            if (touche == XK_Left) {
+                Direction = GAUCHE;
+            }
+            if (touche == XK_Right) {
+                Direction = DROITE;
+            }
+            if (touche == XK_Up) {
+                Direction = HAUT;
+            }
+            if (touche == XK_Down) {
+                Direction = BAS;
+            }
             /*Met en pause si on appuie sur espace*/
             if (touche == XK_space) {
                 OnOff = 0;
@@ -257,8 +249,8 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
         *ligneDepart = nouvelleLigne;
         *colonneDepart = nouvelleColonne;
 
-        /* Vérifie si la case d'arrivée contient une pomme */
-        if (tableau[*colonneDepart][*ligneDepart] == 1) {
+        /* Vérifie si la case d'arrivée contient une pomme ou le serpent */
+        if ((tableau[*colonneDepart][*ligneDepart] == 1 || tableau[*colonneDepart][*ligneDepart] == 2)) {
             (*CompteurPommes)--;
 
             /* Réinitialise la case de la pomme */
