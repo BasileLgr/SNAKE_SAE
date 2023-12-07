@@ -53,7 +53,6 @@ void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
     unsigned long suivant = Microsecondes() + CYCLE;
-    unsigned long suivantTouches = Microsecondes() + CYCLE_TOUCHES;
     /*Pour le timer*/
     int position_seconde = 0;
     int position_minute = 0;
@@ -151,7 +150,6 @@ void fonctionsSnake(void) {
 
         /* Apparition d'une nouvelle pomme si nécessaire */
         if (CompteurPommes < NOMBRE_POMMES) {
-            int ligne, colonne;
             do {
                 genererPositionPomme(tableau, &ligne, &colonne);
             } while (tableau[ligne][colonne] != 0);  /* Vérifier si la case est libre */
@@ -346,7 +344,6 @@ void fonctionsSnake(void) {
 
                 /* Gestion de la triche, si on appuie sur "t" on génère une pomme */
             else if (touche == XK_t) {
-                int ligne, colonne;
 
                 do {
                     genererPositionPomme(tableau, &ligne, &colonne);
