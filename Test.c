@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
-#include "Snake.h"
+#include "Test.h"
 #include <time.h>
 
 #define NB_LIGNES 40
@@ -10,7 +10,7 @@
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
-#define VITESSE_DEPLACEMENT 150000L
+#define VITESSE_INITIALE 150000L
 #define NOMBRE_POMMES 5
 #define COLONNE_DEPART 20
 #define LIGNE_DEPART 30
@@ -57,8 +57,9 @@ void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *
 void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
+    unsigned long vitesseActuelle = VITESSE_INITIALE;
     unsigned long suivant = Microsecondes() + CYCLE;
-    unsigned long deplacement = Microsecondes() + VITESSE_DEPLACEMENT;
+    unsigned long deplacement = Microsecondes() + vitesseActuelle;
     /* Pour le timer */
     int position_seconde = 0;
     int position_minute = 0;
@@ -144,11 +145,14 @@ void fonctionsSnake(void) {
 
             /* Incrémentation des secondes */
             position_seconde++;
-
+            if (position_seconde == 30) {
+                vitesseActuelle -= 5000L;
+            }
             /* Réinitialisation des secondes et des minutes */
             if (position_seconde == 60) {
                 position_seconde = 0;
                 position_minute++;
+                vitesseActuelle -= 5000L;
             }
 
             /* Apparition d'une nouvelle pomme si nécessaire */
@@ -173,7 +177,7 @@ void fonctionsSnake(void) {
             /* Déplacer le serpent selon la direction actuelle */
 
             deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
-            deplacement = Microsecondes() + VITESSE_DEPLACEMENT;
+            deplacement = Microsecondes() + vitesseActuelle;
         }
         if (ToucheEnAttente()) {
             int touche = Touche();
