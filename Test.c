@@ -10,6 +10,7 @@
 #define DECALAGE_MENU_DG 80
 #define DECALAGE_MENU_BAS 60
 #define CYCLE 1000000L
+#define DEPLACEMENT 500000L
 #define NOMBRE_POMMES 5
 #define COLONNE_DEPART 20
 #define LIGNE_DEPART 30
@@ -78,6 +79,7 @@ void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
     unsigned long suivant = Microsecondes() + CYCLE;
+    unsigned long deplacement = Microsecondes() + DEPLACEMENT;
     /* Pour le timer */
     int position_seconde = 0;
     int position_minute = 0;
@@ -187,10 +189,13 @@ void fonctionsSnake(void) {
                 /* Incrémente le compteur de pommes */
                 CompteurPommes++;
             }
+            
+        }
+        if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
             deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
+            deplacement = Microsecondes() + DEPLACEMENT;
         }
-
         if (ToucheEnAttente()) {
             int touche = Touche();
             /*Met en pause si on appuie sur espace*/
