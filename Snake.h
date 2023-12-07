@@ -23,8 +23,7 @@
 #define Y_FENETRE_DE_JEU 80
 
 void fonctionsSnake(void);
-int genererLignePommes(int tableau[NB_LIGNES][NB_COLONNES]);
-int genererColonnePommes(int tableau[NB_LIGNES][NB_COLONNES]);
+void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne);
 void initialiserAleatoire(void);
 
 

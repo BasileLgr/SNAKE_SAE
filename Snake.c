@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
-#include "Test.h"
+#include "Snake.h"
 #include <time.h>
 
 #define NB_LIGNES 40
@@ -37,23 +37,14 @@ int main(void) {
 }
 
 
-/* Fonction pour générer aléatoirement la ligne des pommes */
-int genererLignePommes(int tableau[NB_LIGNES][NB_COLONNES]) {
-    int ligne;
+/* Fonction pour générer aléatoirement la position des pommes */
+void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *colonne) {
     do {
-        ligne = rand() % NB_LIGNES;
-    } while (tableau[ligne][0] == 1);  /* Vérifier si la ligne est déjà occupée par une pomme */
-    return ligne;
+        *ligne = rand() % NB_LIGNES;
+        *colonne = rand() % NB_COLONNES;
+    } while (tableau[*ligne][*colonne] == 1);  /* Vérifier si la position est déjà occupée par une pomme */
 }
 
-/* Fonction pour générer aléatoirement la colonne des pommes */
-int genererColonnePommes(int tableau[NB_LIGNES][NB_COLONNES]) {
-    int colonne;
-    do {
-        colonne = rand() % NB_COLONNES;
-    } while (tableau[0][colonne] == 1);  /* Vérifier si la colonne est déjà occupée par une pomme */
-    return colonne;
-}
 
 
 /*Snake*/
@@ -78,6 +69,8 @@ void fonctionsSnake(void) {
     char tableauScore[10];
     /*Se souvenir de la direction pour le mouvement*/
     int Direction;
+    /*Position des pommes*/
+    int ligne, colonne;
 
     /*Initialisation du tableau pour s'assurer que les valeurs vides soient à 0*/
     int i, j;
@@ -104,8 +97,7 @@ void fonctionsSnake(void) {
 
     /*Mise en places des pommes initiales*/
     for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
-        int ligne = genererLignePommes(tableau);
-        int colonne = genererColonnePommes(tableau);
+        genererPositionPomme(tableau, &ligne, &colonne);
 
         /*Evite de générer deux pommes au même endroit*/
         if (tableau[ligne][colonne] == 1 || tableau[ligne][colonne] == 2) {
@@ -161,8 +153,7 @@ void fonctionsSnake(void) {
         if (CompteurPommes < NOMBRE_POMMES) {
             int ligne, colonne;
             do {
-                ligne = genererLignePommes(tableau);
-                colonne = genererColonnePommes(tableau);
+                genererPositionPomme(tableau, &ligne, &colonne);
             } while (tableau[ligne][colonne] != 0);  /* Vérifier si la case est libre */
 
             /* Marque la position de la pomme */
@@ -312,23 +303,6 @@ void fonctionsSnake(void) {
                 }
             }
 
-                /* Gestion de la triche, si on appuie sur "t" on génère une pomme */
-            else if (touche == XK_t) {
-                int ligne, colonne;
-
-                do {
-                    ligne = genererLignePommes(tableau);
-                    colonne = genererColonnePommes(tableau);
-                } while (tableau[ligne][colonne] == 1 || tableau[ligne][colonne] == 2);
-
-                /* Marque la position de la pomme */
-                tableau[ligne][colonne] = 1;
-
-                /* Affiche la pomme */
-                ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE,
-                             DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-            }
-
             /* Déplacement vers le bas*/
             if (touche == XK_Down) {
                 int nouvelleColonne = colonneDepart + 1;
@@ -368,6 +342,22 @@ void fonctionsSnake(void) {
                     FermerGraphique();
                     exit(EXIT_SUCCESS);
                 }
+            }
+
+                /* Gestion de la triche, si on appuie sur "t" on génère une pomme */
+            else if (touche == XK_t) {
+                int ligne, colonne;
+
+                do {
+                    genererPositionPomme(tableau, &ligne, &colonne);
+                } while (tableau[ligne][colonne] == 1 || tableau[ligne][colonne] == 2);
+
+                /* Marque la position de la pomme */
+                tableau[ligne][colonne] = 1;
+
+                /* Affiche la pomme */
+                ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE,
+                             DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
 
                 /*Met en pause si on appuie sur espace*/
