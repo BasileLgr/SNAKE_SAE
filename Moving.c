@@ -1,8 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
-#include "Snake.h"
-#include <time.h>
+#include "Moving.h"
 
 #define NB_LIGNES 40
 #define NB_COLONNES 60
@@ -24,14 +23,6 @@
 #define Y_TIMER 570
 #define X_FENETRE_DE_JEU 200
 #define Y_FENETRE_DE_JEU 80
-
-enum Direction {
-    GAUCHE,
-    DROITE,
-    HAUT,
-    BAS
-};
-
 
 void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]) {
     int nouvelleLigne = *ligneDepart;

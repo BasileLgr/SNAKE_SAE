@@ -3,7 +3,6 @@
 #include <graph.h>
 #include "Snake.h"
 #include "Moving.h"
-#include <time.h>
 
 #define NB_LIGNES 40
 #define NB_COLONNES 60
@@ -25,12 +24,7 @@
 #define Y_TIMER 570
 #define X_FENETRE_DE_JEU 200
 #define Y_FENETRE_DE_JEU 80
-enum Direction {
-    GAUCHE,
-    DROITE,
-    HAUT,
-    BAS
-};
+
 void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
