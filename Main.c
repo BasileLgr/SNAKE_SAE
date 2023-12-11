@@ -20,6 +20,7 @@ int main(void) {
     else if (resultatMenu == EXIT_QUIT){
         return EXIT_SUCCESS;
     }
+    return EXIT_SUCCESS;
 }
 
 /* Fonction pour générer aléatoirement la position des pommes */
