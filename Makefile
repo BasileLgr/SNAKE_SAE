@@ -1,18 +1,20 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -std=c99 -ansi -pedantic
-LIBS = -lgraph
+LDFLAGS = -lgraph
 
+# Liste des fichiers sources
 SRCS = Menu.c Snake.c Moving.c Main.c
-OBJS = $(SRCS:.c=.o)
 
-Snake: Menu.o $(filter-out Menu.o, $(OBJS))
-	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
+# Cible principale
+Snake: $(SRCS)
+	$(CC) -o Snake $(SRCS) $(CFLAGS) $(LDFLAGS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
+# Cible pour nettoyer les fichiers objets et l'exécutable
+clean:
+	rm -f Snake
 
+# Cible pour exécuter le programme
 run: Snake
 	./Snake
 
-clean:
-	rm -f *.o Snake
+.PHONY: Snake clean run
