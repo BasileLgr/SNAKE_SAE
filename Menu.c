@@ -13,7 +13,7 @@ int menu(void) {
     InitialiserGraphique();
     CreerFenetre(X_FENETRE_DE_JEU, Y_FENETRE_DE_JEU, NB_COLONNES * TAILLE_CASE + DECALAGE_MENU_DG, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
     ChoisirTitreFenetre("Menu Snake");
-    ChargerImageFond("./Images/Menu.png");
+    ChargerImageFond("./Images/MENU.png");
 
     while(1) {
         if (SourisCliquee()) {
