@@ -4,8 +4,6 @@
 #include "Moving.h"
 #include "Snake.h"
 
-#define VALEUR_POMME 5
-
 void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]) {
     int nouvelleLigne = *ligneDepart;
     int nouvelleColonne = *colonneDepart;
