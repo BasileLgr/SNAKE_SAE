@@ -1,24 +1,40 @@
-# SAE11_2023 SNAKE
+# Jeu du Serpent en C
 
 ## Introduction
+Ce projet consiste en l'implémentation d'une version du jeu classique du Serpent en langage C. Le joueur contrôle un serpent en mouvement constant qui doit manger des pastilles sans percuter les limites du terrain ou sa propre queue.
 
-Le projet consiste à développer un ```Snake``` en utilisant le langage de programmation C. Le Snake est un jeu dans lequel le joueur contrôle un serpent qui se déplace à travers un espace en mangeant des objets pour grandir. L'objectif principal de ce projet est de créer une version fonctionnelle et interactive du jeu en utilisant les concepts de base de la programmation en C.
+## Démarrage
+Pour compiler et exécuter le jeu, utilisez le Makefile fourni :
+```bash
+make
+make run
 
-## Fonctionnalités
+## Contrôles
+- Utilisez les touches directionnelles (← ↑ → ↓) pour changer la direction du serpent.
+- Appuyez sur `Esc` pour quitter le jeu.
+- Appuyez sur `Espace` pour mettre le jeu en pause et le reprendre.
 
-Le jeu Snake en C comportera les fonctionnalités suivantes :
+## Règles du jeu
+- Le terrain de jeu est une grille de 40 lignes par 60 colonnes.
+- 5 pastilles de la taille d'une case sont placées aléatoirement.
+- Le serpent, constitué de 10 segments, est initialement placé au milieu.
+- Le serpent avance en ajoutant un segment en tête et en enlevant un segment en queue.
+- Si le serpent percute les limites du terrain ou sa propre queue, la partie se termine.
+- Manger une pastille augmente le score et la longueur du serpent.
+- Si la case où doit être ajouté un segment est hors du terrain ou déjà occupée, la partie se termine.
+- Si un segment est ajouté sur une pastille, elle est "mangée". Une nouvelle pastille est placée aléatoirement, et le serpent s'allonge de 2 segments.
 
-1. **Contrôles simples :** Le joueur pourra contrôler la direction du serpent à l'aide des touches directionnelles.
+## Variante
+- Le déplacement du serpent s'accélère en fonction du score ou du temps écoulé.
 
-2. **Croissance du serpent :** Chaque fois que le serpent mange un objet, sa longueur augmentera.
+## Fichiers et Structure
+- `Main.c` : Fonction principale et boucle de jeu.
+- `Snake.c` : Implémentation de la logique du serpent.
+- `Moving.c` : Déplacement du serpent.
+- `Makefile` : Commandes de compilation et d'exécution.
 
-3. **Gestion des collisions :** Le jeu détectera les collisions entre le serpent et les bords de l'écran ainsi que les collisions avec lui-même, mettant fin à la partie dans ces cas.
+## Dépendances
+Ce projet utilise la bibliothèque graphique de l'IUT. Assurez-vous qu'elle est correctement installée et liée lors de la compilation.
 
-4. **Mise en pause :** L'utilisateur pourra mettre en pause le jeu en appuyant sur la touche ```ESPACE``` et arrêter la partie avec la touche ```ESC```.
-
-5. **Système de score :** Un mécanisme de suivi du score sera mis en place pour enregistrer la performance du joueur.
-
-## Outils et Technologies
-
-Le projet sera développé en utilisant le ```langage de programmation C``` à l'aide de la ```bibliothèque graphique de l'iut```.
-
+## Collaboration
+Le code source est disponible sur le serveur Gitea du département dans le dépôt privé nommé `SAE11_2023`.
