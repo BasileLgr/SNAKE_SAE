@@ -25,7 +25,7 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
     }
 
     /* Vérifier si la nouvelle case est valide */
-    if (nouvelleLigne >= 0 && nouvelleLigne < NB_COLONNES && nouvelleColonne >= 0 && nouvelleColonne < NB_LIGNES) {
+    if ((nouvelleLigne >= 0 && nouvelleLigne < NB_COLONNES && nouvelleColonne >= 0 && nouvelleColonne < NB_LIGNES) && (tableau[nouvelleColonne][nouvelleLigne] != 2)) {
         tableau[*colonneDepart][*ligneDepart] = 0;
 
         ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
@@ -36,7 +36,7 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
         *colonneDepart = nouvelleColonne;
 
         /* Vérifie si la case d'arrivée contient une pomme ou le serpent */
-        if ((tableau[*colonneDepart][*ligneDepart] == 1 || tableau[*colonneDepart][*ligneDepart] == 2)) {
+        if (tableau[*colonneDepart][*ligneDepart] == 1) {
             (*CompteurPommes)--;
 
             /* Réinitialise la case de la pomme */
@@ -57,7 +57,7 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
         ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
                      DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     } else {
-        /* Le serpent est sorti du plateau */
+        FermerGraphique();
         fin();
     }
 }

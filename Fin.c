@@ -1,8 +1,7 @@
 #include <graph.h>
 #include "Snake.h"
-
-#define EXIT_PLAY 1
-#define EXIT_QUIT 2
+#include "Fin.h"
+#include <stdlib.h>
 
 int fin (void){
 
@@ -20,13 +19,13 @@ int fin (void){
                 /* Jouer*/
                 if ((x > 304) && (x < 545) && (y > 230) && (y < 296)) {
                     FermerGraphique();
-                    return EXIT_PLAY;
+                    exit(EXIT_SUCCESS);
                 };
 
                 /*Quitter*/
                 if ((x > 315) && (x < 530) && (y > 400) && (y < 457)) {
                     FermerGraphique();
-                    return EXIT_QUIT;
+                    fonctionsSnake();
                 };
             }
         }
