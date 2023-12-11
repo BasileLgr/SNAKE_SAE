@@ -3,9 +3,6 @@
 #include "Snake.h"
 #include <time.h>
 
-#define NB_LIGNES 40
-#define NB_COLONNES 60
-
 /* Gestion de l'aléatoire */
 void initialiserAleatoire(void) {
     srand((unsigned int)time(NULL));

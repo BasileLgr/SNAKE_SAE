@@ -3,6 +3,7 @@
 #include <graph.h>
 #include "Snake.h"
 #include "Moving.h"
+#include "Main.h"
 
 #define NB_LIGNES 40
 #define NB_COLONNES 60
@@ -19,7 +20,6 @@
 #define DECALAGE_BANDE_NOIR_HAUT 15
 #define X_SCORE 710
 #define Y_SCORE 570
-#define VALEUR_POMME 5
 #define X_TIMER 45
 #define Y_TIMER 570
 #define X_FENETRE_DE_JEU 200
