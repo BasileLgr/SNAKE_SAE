@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -std=c99 -ansi -pedantic
 LDFLAGS = -lgraph
 
 # Liste des fichiers sources
-SRCS = Menu.c Snake.c Moving.c Main.c
+SRCS = Menu.c Snake.c Moving.c Main.c Fin.c
 
 # Cible principale
 Snake: $(SRCS)

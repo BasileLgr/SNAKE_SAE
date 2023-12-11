@@ -1,8 +1,8 @@
-#include <stdlib.h>
 #include <stdio.h>
 #include <graph.h>
 #include "Moving.h"
 #include "Snake.h"
+#include "Fin.h"
 
 void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]) {
     int nouvelleLigne = *ligneDepart;
@@ -57,7 +57,7 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
         ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
                      DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     } else {
-        FermerGraphique();
-        exit(EXIT_SUCCESS);
+        /* Le serpent est sorti du plateau */
+        fin();
     }
 }

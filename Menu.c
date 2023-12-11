@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <graph.h>
 #include "Snake.h"
 
@@ -22,14 +21,12 @@ int menu(void) {
 
             /* Jouer*/
             if ((x > 326) && (x < 513) && (y > 230) && (y < 293)) {
-                printf("Jouer\n");
                 FermerGraphique();
                 return EXIT_PLAY;
             };
 
             /*Quitter*/
             if ((x > 311) && (x < 530) && (y > 385) && (y < 442)) {
-                printf("Quitter\n");
                 FermerGraphique();
                 return EXIT_QUIT;
             };
