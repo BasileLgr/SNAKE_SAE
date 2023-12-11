@@ -1,17 +1,18 @@
 CC = gcc
-CFLAGS = -ansi -pedantic
-LDFLAGS = -lgraph
-TARGET = Snake
+CFLAGS = -Wall -Wextra -std=c99 -ansi -pedantic
+LIBS = -lgraph
 
-.PHONY: all clean
+SRCS = Menu.c Snake.c Moving.c Main.c
+OBJS = $(SRCS:.c=.o)
 
-all: $(TARGET)
+Snake: Menu.o $(filter-out Menu.o, $(OBJS))
+	$(CC) $(CFLAGS) $^ -o $@ $(LIBS)
 
-$(TARGET): Snake.c Moving.h Main.c Snake.h
-	$(CC) $(CFLAGS) -o $(TARGET) Snake.c Main.c Moving.c $(LDFLAGS)
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-run: $(TARGET)
-	./$(TARGET)
+run: Snake
+	./Snake
 
 clean:
-	rm -f $(TARGET)
+	rm -f *.o Snake

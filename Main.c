@@ -2,6 +2,7 @@
 #include <graph.h>
 #include "Snake.h"
 #include <time.h>
+#include "Menu.h"
 
 /* Gestion de l'aléatoire */
 void initialiserAleatoire(void) {
@@ -10,8 +11,15 @@ void initialiserAleatoire(void) {
 
 /* Main */
 int main(void) {
+    int resultatMenu;
     initialiserAleatoire();
-    fonctionsSnake();
+    resultatMenu = menu();
+    if (resultatMenu == EXIT_PLAY){
+        fonctionsSnake();
+    }
+    else if (resultatMenu == EXIT_QUIT){
+        return EXIT_SUCCESS;
+    }
     return EXIT_SUCCESS;
 }
 
