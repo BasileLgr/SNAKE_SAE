@@ -8,7 +8,7 @@ Pour compiler et exécuter le jeu, utilisez le Makefile fourni :
 ```bash
 make
 make run
-'''
+```
 
 ## Contrôles
 - Utilisez les touches directionnelles (← ↑ → ↓) pour changer la direction du serpent.
