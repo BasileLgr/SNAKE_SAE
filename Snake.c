@@ -49,7 +49,7 @@ void fonctionsSnake(void) {
     RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE, DECALAGE_BANDE_NOIR_HAUT, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE);
 
     /* Mise en place du serpent */
-    ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + ligneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+    ChargerImage("./Images/TeteSerpentG.png", DECALAGE_BANDE_NOIR_GAUCHE + ligneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     tableau[colonneDepart][ligneDepart] = 2;
 
     /* Mise en places des pommes initiales */
@@ -67,7 +67,7 @@ void fonctionsSnake(void) {
         tableau[ligne][colonne] = 1;
 
         /* Affiche les pommes */
-        ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+        ChargerImage("./Images/PommePixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     }
     /* Affichage du timer de départ */
     ChoisirCouleurDessin(CouleurParNom("white"));
@@ -116,7 +116,7 @@ void fonctionsSnake(void) {
                 tableau[ligne][colonne] = 1;
 
                 /* Affiche la pomme */
-                ChargerImage("./Images/PommePixel2.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE,
+                ChargerImage("./Images/PommePixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE,
                              DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
 
                 /* Incrémente le compteur de pommes */

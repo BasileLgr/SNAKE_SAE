@@ -54,7 +54,7 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
         }
 
         tableau[*colonneDepart][*ligneDepart] = 2;
-        ChargerImage("./Images/DenisPixel.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
+        ChargerImage("./Images/TeteSerpentG.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
                      DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     } else {
         FermerGraphique();
