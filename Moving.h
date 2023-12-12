@@ -16,6 +16,6 @@ enum Direction {
     BAS
 };
 
-void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10], int *longueurSerpent,int *lignePositionQueue, int *colonnePositionQueue);
+void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]);
 
 #endif
