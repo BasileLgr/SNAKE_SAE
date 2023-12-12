@@ -132,17 +132,17 @@ void fonctionsSnake(void) {
         }
         if (ToucheEnAttente()) {
             int touche = Touche();
-
-            if (touche == XK_Left) {
+            /*empechement du 180°*/
+            if (touche == XK_Left && Direction != DROITE) {
                 Direction = GAUCHE;
             }
-            if (touche == XK_Right) {
+            if (touche == XK_Right && Direction != GAUCHE) {
                 Direction = DROITE;
             }
-            if (touche == XK_Up) {
+            if (touche == XK_Up && Direction != BAS) {
                 Direction = HAUT;
             }
-            if (touche == XK_Down) {
+            if (touche == XK_Down && Direction != HAUT) {
                 Direction = BAS;
             }
             /*Met en pause si on appuie sur espace*/
