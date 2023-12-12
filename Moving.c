@@ -4,9 +4,10 @@
 #include "Snake.h"
 #include "Fin.h"
 
-void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10], int *longueurSerpent, int *lignePositionQueue, int *colonnePositionQueue) {
+void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]) {
     int nouvelleLigne = *ligneDepart;
     int nouvelleColonne = *colonneDepart;
+
     /* Déplacer le serpent selon la direction actuelle */
     switch (*Direction) {
         case GAUCHE:
@@ -28,43 +29,22 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
         tableau[*colonneDepart][*ligneDepart] = 0;
 
         ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
-        RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + *colonnePositionQueue * TAILLE_CASE,
-                         DECALAGE_BANDE_NOIR_HAUT + *lignePositionQueue * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+        RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
+                         DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
+
+        *ligneDepart = nouvelleLigne;
+        *colonneDepart = nouvelleColonne;
+
         /* Vérifie si la case d'arrivée contient une pomme ou le serpent */
         if (tableau[*colonneDepart][*ligneDepart] == 1) {
             (*CompteurPommes)--;
 
-            /* case pomme deviens corps serpent */
-            tableau[*colonneDepart][*ligneDepart] = 2;
-            *longueurSerpent ++;
-            if(*Direction==GAUCHE) {
-                *lignePositionQueue++;
-                ChargerImage("./Images/QueueSerpentG.png", DECALAGE_BANDE_NOIR_GAUCHE + *lignePositionQueue * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + *colonnePositionQueue * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-                
-            }
-            else if(*Direction==DROITE){
-                *ligneDepart--;
-                ChargerImage("./Images/QueueSerpentD.png", DECALAGE_BANDE_NOIR_GAUCHE + *lignePositionQueue * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + *colonnePositionQueue * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-                
-            }
-            else if (*Direction==HAUT){
-                colonnePositionQueue++;
-                ChargerImage("./Images/QueueSerpentH.png", DECALAGE_BANDE_NOIR_GAUCHE + *lignePositionQueue * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + *colonnePositionQueue * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-                
-            }
-            else if (*Direction==BAS){
-                *lignePositionQueue=*ligneDepart;
-                *colonnePositionQueue=*colonneDepart--;
-                ChargerImage("./Images/QueueSerpentB.png", DECALAGE_BANDE_NOIR_GAUCHE + *lignePositionQueue * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + *colonnePositionQueue * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-                
-            }
+            /* Réinitialise la case de la pomme */
+            tableau[*colonneDepart][*ligneDepart] = 0;
+
             /* Incrémente le score */
             (*Score) += VALEUR_POMME;
-            
+
             /* Affichage du score */
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_NOIR));
             RemplirRectangle(X_SCORE, Y_SCORE - DECALAGE_BANDE_NOIR_HAUT * 2, 110, 40);
@@ -73,26 +53,25 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
             EcrireTexte(X_SCORE, Y_SCORE, tableauScore, 2);
         }
 
-        tableau[nouvelleColonne][nouvelleLigne] = 2;
-        /*affichage de la tete du serpent en fonction de la direction*/
+        tableau[*colonneDepart][*ligneDepart] = 2;
+            /*affichage de la tete du serpent en fonction de la direction*/
         if(*Direction==GAUCHE) {
-            ChargerImage("./Images/TeteSerpentG.png", DECALAGE_BANDE_NOIR_GAUCHE + nouvelleLigne * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + nouvelleColonne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/TeteSerpentG.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
+                     DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
         else if(*Direction==DROITE){
-            ChargerImage("./Images/TeteSerpentD.png", DECALAGE_BANDE_NOIR_GAUCHE + nouvelleLigne * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + nouvelleColonne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/TeteSerpentD.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
+                     DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
         else if (*Direction==HAUT){
-            ChargerImage("./Images/TeteSerpentH.png", DECALAGE_BANDE_NOIR_GAUCHE + nouvelleLigne * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + nouvelleColonne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/TeteSerpentH.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
+                     DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
         else if (*Direction==BAS){
-            ChargerImage("./Images/TeteSerpentB.png", DECALAGE_BANDE_NOIR_GAUCHE + nouvelleLigne * TAILLE_CASE,
-                     DECALAGE_BANDE_NOIR_HAUT + nouvelleColonne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            ChargerImage("./Images/TeteSerpentB.png", DECALAGE_BANDE_NOIR_GAUCHE + *ligneDepart * TAILLE_CASE,
+                     DECALAGE_BANDE_NOIR_HAUT + *colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
             }
-        *ligneDepart = nouvelleLigne;
-        *colonneDepart = nouvelleColonne;
+    
     } else {
         FermerGraphique();
         fin();
