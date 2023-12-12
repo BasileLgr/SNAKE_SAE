@@ -43,7 +43,7 @@ void fonctionsSnake(void) {
     /* Création de la fenêtre de jeu */
     CreerFenetre(X_FENETRE_DE_JEU, Y_FENETRE_DE_JEU, NB_COLONNES * TAILLE_CASE + DECALAGE_MENU_DG, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
     ChoisirTitreFenetre("Snake");
-    ChoisirCouleurDessin(CouleurParNom("black"));
+    ChoisirCouleurDessin(CouleurParComposante(COULEUR_NOIR));
     RemplirRectangle(0, 0, NB_COLONNES * TAILLE_CASE + DECALAGE_MENU_DG, NB_LIGNES * TAILLE_CASE + DECALAGE_MENU_BAS);
     ChoisirCouleurDessin(CouleurParComposante(COULEUR_FOND));
     RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE, DECALAGE_BANDE_NOIR_HAUT, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE);
@@ -70,7 +70,7 @@ void fonctionsSnake(void) {
         ChargerImage("./Images/PommePixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     }
     /* Affichage du timer de départ */
-    ChoisirCouleurDessin(CouleurParNom("white"));
+    ChoisirCouleurDessin(CouleurParComposante(COULEUR_TEXTE));
     EcrireTexte(X_TIMER, Y_TIMER, "00:00", 2);
 
     /* Affichage du score de départ */
@@ -85,11 +85,11 @@ void fonctionsSnake(void) {
             sprintf(temps, "%02d:%02d", position_minute, position_seconde);
 
             /* Affichage du fond noir pour actualiser le timer */
-            ChoisirCouleurDessin(CouleurParNom("black"));
+            ChoisirCouleurDessin(CouleurParComposante(COULEUR_NOIR));
             RemplirRectangle(X_TIMER, Y_TIMER - DECALAGE_BANDE_NOIR_HAUT * 2, 75, 40);
 
             /* Affichage du timer */
-            ChoisirCouleurDessin(CouleurParNom("white"));
+            ChoisirCouleurDessin(CouleurParComposante(COULEUR_TEXTE));
             EcrireTexte(X_TIMER, Y_TIMER, temps, 2);
 
             suivant = Microsecondes() + CYCLE;

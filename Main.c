@@ -3,8 +3,6 @@
 #include "Snake.h"
 #include <time.h>
 #include "Menu.h"
-#include "Fin.h"
-#include <stdio.h>
 
 /* Gestion de l'aléatoire */
 void initialiserAleatoire(void) {
@@ -16,9 +14,11 @@ int main(void) {
     int resultatMenu;
     initialiserAleatoire();
     resultatMenu = menu();
+    /*Début du jeu après le menu de démarrage*/
     if (resultatMenu == EXIT_PLAY){
         fonctionsSnake();
     }
+    /*Fin du jeu après le menu de démarrage*/
     else if (resultatMenu == EXIT_QUIT){
         return EXIT_SUCCESS;
     }

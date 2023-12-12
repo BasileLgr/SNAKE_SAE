@@ -46,9 +46,9 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
             (*Score) += VALEUR_POMME;
 
             /* Affichage du score */
-            ChoisirCouleurDessin(CouleurParNom("black"));
+            ChoisirCouleurDessin(CouleurParComposante(COULEUR_NOIR));
             RemplirRectangle(X_SCORE, Y_SCORE - DECALAGE_BANDE_NOIR_HAUT * 2, 110, 40);
-            ChoisirCouleurDessin(CouleurParNom("white"));
+            ChoisirCouleurDessin(CouleurParComposante(COULEUR_TEXTE));
             sprintf(tableauScore, "%07d", *Score);
             EcrireTexte(X_SCORE, Y_SCORE, tableauScore, 2);
         }
