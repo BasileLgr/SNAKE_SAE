@@ -8,6 +8,7 @@
 void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
+    int lignePositionQueue=LIGNE_DEPART, colonnePositionQueue=COLONNE_DEPART;
     unsigned long vitesseActuelle = VITESSE_INITIALE;
     unsigned long suivant = Microsecondes() + CYCLE;
     unsigned long deplacement = Microsecondes() + vitesseActuelle;
@@ -21,6 +22,7 @@ void fonctionsSnake(void) {
     int tableau[NB_LIGNES][NB_COLONNES];
     /* Permet de savoir en temps réel le nombre de pommes sur le terrain (hors triche) */
     int CompteurPommes;
+    int longueurSerpent=1;
     /* Score */
     int Score = 0;
     char tableauScore[10];
@@ -127,7 +129,7 @@ void fonctionsSnake(void) {
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
 
-            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
+            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore, &longueurSerpent, &lignePositionQueue, &colonnePositionQueue );
             deplacement = Microsecondes() + vitesseActuelle;
         }
         if (ToucheEnAttente()) {
