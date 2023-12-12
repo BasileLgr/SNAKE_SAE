@@ -16,14 +16,14 @@ int fin (void){
                 x = _X;
                 y = _Y;
 
-                /* Jouer*/
-                if ((x > 304) && (x < 545) && (y > 230) && (y < 296)) {
+                /*Quitter*/
+                if ((x > 311) && (x < 523) && (y > 409) && (y < 463)) {
                     FermerGraphique();
                     exit(EXIT_SUCCESS);
                 };
 
-                /*Quitter*/
-                if ((x > 315) && (x < 530) && (y > 400) && (y < 457)) {
+                /*Rejouer*/
+                if ((x > 302) && (x < 531) && (y > 237) && (y < 292)) {
                     FermerGraphique();
                     fonctionsSnake();
                 };
