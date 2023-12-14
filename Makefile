@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c99 -ansi -pedantic
+CFLAGS = -ansi -pedantic
 LDFLAGS = -lgraph
 
 # Liste des fichiers sources
