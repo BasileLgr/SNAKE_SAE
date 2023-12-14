@@ -3,12 +3,10 @@
 #include "Moving.h"
 #include "Snake.h"
 #include "Fin.h"
-#include "Snake.c"
 
 void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]) {
     int nouvelleLigne = *ligneDepart;
     int nouvelleColonne = *colonneDepart;
-    int scoreDernierePartie = 0;
 
     /* Déplacer le serpent selon la direction actuelle */
     switch (*Direction) {
@@ -52,7 +50,6 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
             RemplirRectangle(X_SCORE, Y_SCORE - DECALAGE_BANDE_NOIR_HAUT * 2, 110, 40);
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_TEXTE));
             sprintf(tableauScore, "%07d", *Score);
-            scoreDernierePartie = Score;
             EcrireTexte(X_SCORE, Y_SCORE, tableauScore, 2);
         }
 
