@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <graph.h>
 #include "Snake.h"
 #include <time.h>
 #include "Menu.h"
