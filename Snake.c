@@ -15,6 +15,7 @@ void fonctionsSnake(void) {
     int position_seconde = 0;
     int position_minute = 0;
     char temps[10];
+    char tempsDernierePartie[10];
     /* Interrupteur pour la boucle, permet de mettre en pause le jeu */
     int OnOff = 1;
     /* Tableau permettant de savoir la position de chaque objet */
@@ -83,7 +84,7 @@ void fonctionsSnake(void) {
         if (Microsecondes() > suivant) {
             /* Mise en place de la chaîne de caractères pour le timer */
             sprintf(temps, "%02d:%02d", position_minute, position_seconde);
-
+            sprintf(tempsDernierePartie, "%02d:%02d", position_minute, position_seconde);
             /* Affichage du fond noir pour actualiser le timer */
             ChoisirCouleurDessin(CouleurParComposante(COULEUR_NOIR));
             RemplirRectangle(X_TIMER, Y_TIMER - DECALAGE_BANDE_NOIR_HAUT * 2, 75, 40);
