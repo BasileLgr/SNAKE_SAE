@@ -8,6 +8,7 @@
 void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
+    int positionSerpent[200][2];
     unsigned long vitesseActuelle = VITESSE_INITIALE;
     unsigned long suivant = Microsecondes() + CYCLE;
     unsigned long deplacement = Microsecondes() + vitesseActuelle;
@@ -22,6 +23,7 @@ void fonctionsSnake(void) {
     int tableau[NB_LIGNES][NB_COLONNES];
     /* Permet de savoir en temps réel le nombre de pommes sur le terrain (hors triche) */
     int CompteurPommes;
+    int longueurSerpent = 10;
     /* Score */
     int Score = 0;
     char tableauScore[10];
@@ -37,7 +39,12 @@ void fonctionsSnake(void) {
             tableau[i][j] = 0;
         }
     }
-
+    for(i=0;i<longueurSerpent;i++){
+        positionSerpent[i][0]=LIGNE_DEPART;
+        positionSerpent[i][1]=COLONNE_DEPART+1;
+        tableau[positionSerpent[i][0]][positionSerpent[i][1]]=2;
+        printf("1");
+    }
     /* Ouverture de la fenêtre graphique */
     InitialiserGraphique();
 
@@ -51,8 +58,13 @@ void fonctionsSnake(void) {
 
     /* Mise en place du serpent */
     ChargerImage("./Images/TETESERPENTCARREG.png", DECALAGE_BANDE_NOIR_GAUCHE + ligneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-    tableau[colonneDepart][ligneDepart] = 2;
+    tableau[positionSerpent[0][0]][positionSerpent[0][1]] = 2;
+    for(i=1;i<longueurSerpent;i++){
+        ChoisirCouleurDessin(CouleurParComposante(240, 255, 70));
+        RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + positionSerpent[i][0] * TAILLE_CASE,
+            DECALAGE_BANDE_NOIR_HAUT + positionSerpent[i][1] * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
 
+    }
     /* Mise en places des pommes initiales */
     for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
         genererPositionPomme(tableau, &ligne, &colonne);
@@ -128,8 +140,8 @@ void fonctionsSnake(void) {
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
 
-            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
-            deplacement = Microsecondes() + vitesseActuelle;
+            /*deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
+            deplacement = Microsecondes() + vitesseActuelle;*/
         }
         if (ToucheEnAttente()) {
             int touche = Touche();
