@@ -5,7 +5,13 @@
 #include "Moving.h"
 #include "Main.h"
 
+int position_seconde;
+int position_minute;
+
 void fonctionsSnake(void) {
+    /*Mise a zero du timer*/
+    position_seconde = 0;
+    position_minute = 0;
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
     int positionSerpent[200][2];
@@ -13,8 +19,6 @@ void fonctionsSnake(void) {
     unsigned long suivant = Microsecondes() + CYCLE;
     unsigned long deplacement = Microsecondes() + vitesseActuelle;
     /* Pour le timer */
-    int position_seconde = 0;
-    int position_minute = 0;
     char temps[10];
     char tempsDernierePartie[10];
     /* Interrupteur pour la boucle, permet de mettre en pause le jeu */
@@ -43,7 +47,6 @@ void fonctionsSnake(void) {
         positionSerpent[i][0]=LIGNE_DEPART;
         positionSerpent[i][1]=COLONNE_DEPART+1;
         tableau[positionSerpent[i][0]][positionSerpent[i][1]]=2;
-        printf("1");
     }
     /* Ouverture de la fenêtre graphique */
     InitialiserGraphique();
@@ -140,7 +143,7 @@ void fonctionsSnake(void) {
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
 
-            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
+            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore, position_seconde, position_minute);
             deplacement = Microsecondes() + vitesseActuelle;
         }
         if (ToucheEnAttente()) {
@@ -158,6 +161,27 @@ void fonctionsSnake(void) {
             if (touche == XK_Down && Direction != HAUT) {
                 Direction = BAS;
             }
+
+            /* Triche */
+            if (touche == XK_t) {
+                do {
+                    genererPositionPomme(tableau, &ligne, &colonne);
+                } while (tableau[ligne][colonne] != 0); /* Vérifier si la case est libre */
+
+                /* Marque la position de la pomme */
+                tableau[ligne][colonne] = 1;
+
+                /* Affiche la pomme */
+                ChargerImage("./Images/PommePixel.png", DECALAGE_BANDE_NOIR_GAUCHE + colonne * TAILLE_CASE,
+                             DECALAGE_BANDE_NOIR_HAUT + ligne * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+            }
+
+            /*Touche de reset*/
+            if (touche == XK_r) {
+                FermerGraphique();
+                fonctionsSnake();
+            }
+
             /*Met en pause si on appuie sur espace*/
             if (touche == XK_space) {
                 OnOff = 0;

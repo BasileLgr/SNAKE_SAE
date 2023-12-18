@@ -4,7 +4,7 @@
 #include "Snake.h"
 #include "Fin.h"
 
-void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10]) {
+void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int *colonneDepart, int *Direction, int *CompteurPommes, int *Score, char tableauScore[10], int position_seconde, int position_minute) {
     int nouvelleLigne = *ligneDepart;
     int nouvelleColonne = *colonneDepart;
 
@@ -74,6 +74,6 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
     
     } else {
         FermerGraphique();
-        fin(*Score);
+        fin(*Score, position_minute, position_seconde);
     }
 }
