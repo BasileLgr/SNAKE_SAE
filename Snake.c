@@ -140,8 +140,8 @@ void fonctionsSnake(void) {
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
 
-            /*deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
-            deplacement = Microsecondes() + vitesseActuelle;*/
+            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore);
+            deplacement = Microsecondes() + vitesseActuelle;
         }
         if (ToucheEnAttente()) {
             int touche = Touche();
