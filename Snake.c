@@ -9,9 +9,6 @@ int position_seconde;
 int position_minute;
 
 void fonctionsSnake(void) {
-    /*Mise a zero du timer*/
-    position_seconde = 0;
-    position_minute = 0;
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
     int positionSerpent[200][2];
@@ -35,9 +32,12 @@ void fonctionsSnake(void) {
     int Direction = GAUCHE; /* Direction initiale */
     /* Position des pommes */
     int ligne, colonne;
+    int i, j; /* Variables de boucle */
+    /*Mise a zero du timer*/
+    position_seconde = 0;
+    position_minute = 0;
 
     /* Initialisation du tableau pour s'assurer que les valeurs vides soient à 0 */
-    int i, j;
     for (i = 0; i < NB_LIGNES; i++) {
         for (j = 0; j < NB_COLONNES; j++) {
             tableau[i][j] = 0;

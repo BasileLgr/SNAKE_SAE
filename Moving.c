@@ -75,5 +75,6 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int *ligneDepart, int 
     } else {
         FermerGraphique();
         fin(*Score, position_minute, position_seconde);
+        exit(EXIT_SUCCESS);
     }
 }
