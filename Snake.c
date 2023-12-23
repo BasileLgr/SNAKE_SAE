@@ -11,7 +11,8 @@ int position_minute;
 void fonctionsSnake(void) {
     int colonneDepart = COLONNE_DEPART;
     int ligneDepart = LIGNE_DEPART;
-    int positionSerpent[200][2];
+    int positionTete[200][2];
+    int positionQueue[2];
     unsigned long vitesseActuelle = VITESSE_INITIALE;
     unsigned long suivant = Microsecondes() + CYCLE;
     unsigned long deplacement = Microsecondes() + vitesseActuelle;
@@ -36,17 +37,19 @@ void fonctionsSnake(void) {
     /*Mise a zero du timer*/
     position_seconde = 0;
     position_minute = 0;
-
     /* Initialisation du tableau pour s'assurer que les valeurs vides soient à 0 */
     for (i = 0; i < NB_LIGNES; i++) {
         for (j = 0; j < NB_COLONNES; j++) {
             tableau[i][j] = 0;
         }
     }
+    positionTete[0][0]=LIGNE_DEPART;
+    positionTete[0][1]=COLONNE_DEPART;
     for(i=0;i<longueurSerpent;i++){
-        positionSerpent[i][0]=LIGNE_DEPART;
-        positionSerpent[i][1]=COLONNE_DEPART+1;
-        tableau[positionSerpent[i][0]][positionSerpent[i][1]]=2;
+        positionTete[i][0]=LIGNE_DEPART+i;
+        positionTete[i][1]=COLONNE_DEPART;
+        printf("%d %d\n", positionTete[i][0], positionTete[i][1]);
+        tableau[positionTete[i][1]][positionTete[i][0]]=2;
     }
     /* Ouverture de la fenêtre graphique */
     InitialiserGraphique();
@@ -60,13 +63,12 @@ void fonctionsSnake(void) {
     RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE, DECALAGE_BANDE_NOIR_HAUT, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE);
 
     /* Mise en place du serpent */
-    ChargerImage("./Images/TETESERPENTCARREG.png", DECALAGE_BANDE_NOIR_GAUCHE + ligneDepart * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + colonneDepart * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
-    tableau[positionSerpent[0][0]][positionSerpent[0][1]] = 2;
+    ChargerImage("./Images/TETESERPENTCARREG.png", DECALAGE_BANDE_NOIR_GAUCHE + positionTete[0][0] * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + positionTete[0][1] * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
+    tableau[positionTete[0][0]][positionTete[0][1]] = 2;
     for(i=1;i<longueurSerpent;i++){
         ChoisirCouleurDessin(CouleurParComposante(240, 255, 70));
-        RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + positionSerpent[i][0] * TAILLE_CASE,
-            DECALAGE_BANDE_NOIR_HAUT + positionSerpent[i][1] * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
-
+        RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE + (positionTete[i][0]) * TAILLE_CASE,
+            DECALAGE_BANDE_NOIR_HAUT + positionTete[i][1] * TAILLE_CASE, TAILLE_CASE, TAILLE_CASE);
     }
     /* Mise en places des pommes initiales */
     for (CompteurPommes = 0; CompteurPommes < NOMBRE_POMMES; ++CompteurPommes) {
@@ -143,7 +145,7 @@ void fonctionsSnake(void) {
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
 
-            deplacerSerpent(tableau, &ligneDepart, &colonneDepart, &Direction, &CompteurPommes, &Score, tableauScore, position_seconde, position_minute);
+            deplacerSerpent(tableau, positionTete, &Direction, &CompteurPommes, &Score, tableauScore, position_seconde, position_minute, &longueurSerpent);
             deplacement = Microsecondes() + vitesseActuelle;
         }
         if (ToucheEnAttente()) {
