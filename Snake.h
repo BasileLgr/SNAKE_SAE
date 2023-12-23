@@ -24,7 +24,7 @@
 #define COULEUR_TEXTE 190, 255, 160
 
 
-void fonctionsSnake(void);
+void fonctionsSnake(int position_seconde, int position_minute);
 void initialiserAleatoire(void);
 
 #endif

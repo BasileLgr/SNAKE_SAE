@@ -18,12 +18,14 @@ void genererPositionPomme(int tableau[NB_LIGNES][NB_COLONNES], int *ligne, int *
 
 /* Main */
 int main(void) {
+    int position_seconde;
+    int position_minute;
     int resultatMenu;
     initialiserAleatoire();
     resultatMenu = menu();
     /*Début du jeu après le menu de démarrage*/
     if (resultatMenu == EXIT_PLAY){
-        fonctionsSnake();
+        fonctionsSnake(position_seconde, position_minute);
     }
     /*Fin du jeu après le menu de démarrage*/
     else if (resultatMenu == EXIT_QUIT){

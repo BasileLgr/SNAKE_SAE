@@ -42,7 +42,7 @@ int fin (int score, int position_minute, int position_seconde){
                 /*Rejouer*/
                 if ((x > 117) && (x < 332) && (y > 178) && (y < 232)) {
                     FermerGraphique();
-                    fonctionsSnake();
+                    fonctionsSnake(position_seconde, position_minute);
                 };
             }
             if (ToucheEnAttente()) {
@@ -53,7 +53,7 @@ int fin (int score, int position_minute, int position_seconde){
                 /*Rejouer*/
                 else if (Touche() == XK_r) {
                     FermerGraphique();
-                    fonctionsSnake();
+                    fonctionsSnake(position_seconde, position_minute);
                 }
             }
         }
