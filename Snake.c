@@ -63,8 +63,9 @@ void fonctionsSnake(int position_seconde, int position_minute) {
     RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE, DECALAGE_BANDE_NOIR_HAUT, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE);
 
     /*Création de l'écran pause*/
-    ChoisirEcran(0);
+    ChoisirEcran(1);
     ChargerImage("./Images/PAUSE.png", 320, 213, 0, 0, 800, 600);
+    ChoisirEcran(0);
     /* Mise en place du serpent */
     ChargerImage("./Images/TETESERPENTCARREG.png", DECALAGE_BANDE_NOIR_GAUCHE + positionTete[0][0] * TAILLE_CASE, DECALAGE_BANDE_NOIR_HAUT + positionTete[0][1] * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);
     tableau[positionTete[0][0]][positionTete[0][1]] = 2;
@@ -202,12 +203,15 @@ void fonctionsSnake(int position_seconde, int position_minute) {
             /*Met en pause si on appuie sur espace*/
             if (touche == XK_space) {
                 OnOff = 0;
+                CopierZone (0, 2, 320, 213, 0, 0, 800, 600);
+                CopierZone(1, 0, 320, 213, 0, 0, 800, 600);
 
                 /*Reprise si on rappuie sur espace*/
                 while (OnOff == 0) {
                     if (Touche() == XK_space) {
+                        CopierZone(2, 0, 320, 213, 0, 0, 800, 600);
                         OnOff = 1;
-                        continue
+                        continue;
                     }
 
                     /*Si jamais on appuie sur échap pendant la pause cela quitte aussi le jeu*/
