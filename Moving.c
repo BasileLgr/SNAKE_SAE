@@ -48,7 +48,6 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int positionTete[200][
 
         /* Vérifie si la case d'arrivée contient une pomme ou le serpent */
         if (tableau[positionTete[0][1]][positionTete[0][0]] == 1) {
-            printf("POMMES\n");
             (*CompteurPommes)--;
 
             /* Réinitialise la case de la pomme */

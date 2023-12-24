@@ -48,7 +48,6 @@ void fonctionsSnake(int position_seconde, int position_minute) {
     for(i=0;i<longueurSerpent;i++){
         positionTete[i][0]=LIGNE_DEPART+i;
         positionTete[i][1]=COLONNE_DEPART;
-        printf("%d %d\n", positionTete[i][0], positionTete[i][1]);
         tableau[positionTete[i][1]][positionTete[i][0]]=2;
     }
     /* Ouverture de la fenêtre graphique */
@@ -149,19 +148,6 @@ void fonctionsSnake(int position_seconde, int position_minute) {
         }
         if(Microsecondes()>deplacement){
             /* Déplacer le serpent selon la direction actuelle */
-            for(i=0;i>(NB_LIGNES);i++){
-            for(j=0;j<NB_COLONNES;j++){
-                if(tableau[i][j]==0){
-                    printf("0");
-                }
-                else if(tableau[i][j]==1){
-                printf("T");}
-                else if(tableau[i][j]==2){
-                    printf("2");
-                }
-            }
-            printf("\n");
-        }
             deplacerSerpent(tableau, positionTete, &Direction, &CompteurPommes, &Score, tableauScore, position_seconde, position_minute, &longueurSerpent);
             deplacement = Microsecondes() + vitesseActuelle;
         }
