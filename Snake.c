@@ -203,8 +203,8 @@ void fonctionsSnake(int position_seconde, int position_minute) {
             /*Met en pause si on appuie sur espace*/
             if (touche == XK_space) {
                 OnOff = 0;
-                CopierZone (0, 2, 320, 213, 0, 0, 323, 213);
-                CopierZone(1, 0, 320, 213, 0, 0, 323, 213);
+                CopierZone (0, 2, 320, 213, 320, 213, 323, 213);
+                CopierZone(1, 0, 320, 213, 320, 213, 323, 213);
 
                 /*Reprise si on rappuie sur espace*/
                 while (OnOff == 0) {
