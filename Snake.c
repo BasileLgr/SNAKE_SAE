@@ -209,7 +209,7 @@ void fonctionsSnake(int position_seconde, int position_minute) {
                 /*Reprise si on rappuie sur espace*/
                 while (OnOff == 0) {
                     if (Touche() == XK_space) {
-                        CopierZone(2, 0, 320, 213, 320, 213, 215, 145);
+                        CopierZone(2, 0, 320, 213, 215, 145, 323, 213);
                         OnOff = 1;
                         continue;
                     }
