@@ -184,7 +184,7 @@ void fonctionsSnake(int position_seconde, int position_minute) {
             /*Touche de reset*/
             if (touche == XK_r) {
                 FermerGraphique();
-                fonctionsSnake( position_seconde, position_minute);
+                fonctionsSnake(position_seconde, position_minute);
             }
 
             /*Met en pause si on appuie sur espace*/
