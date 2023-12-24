@@ -63,7 +63,7 @@ void fonctionsSnake(int position_seconde, int position_minute) {
     RemplirRectangle(DECALAGE_BANDE_NOIR_GAUCHE, DECALAGE_BANDE_NOIR_HAUT, NB_COLONNES * TAILLE_CASE, NB_LIGNES * TAILLE_CASE);
 
     /*Création de l'écran pause*/
-    ChoisirEcran(1);
+    ChoisirEcran(0);
     ChargerImage("./Images/PAUSE.png", 320, 213, 0, 0, 800, 600);
     ChoisirEcran(0);
     /* Mise en place du serpent */
