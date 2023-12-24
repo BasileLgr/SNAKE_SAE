@@ -29,13 +29,13 @@ make run
 - Le déplacement du serpent s'accélère en fonction du score ou du temps écoulé.
 
 ## Fichiers et Structure
-- `Main.c` : Fonction principale et boucle de jeu.
+- `Main.c` : Fonction principale.
 - `Snake.c` : Implémentation de la logique du serpent.
 - `Moving.c` : Déplacement du serpent.
+- `Fin.c` : Menu de fin.
+- `Menu.c` : Menu de début.
 - `Makefile` : Commandes de compilation et d'exécution.
+
 
 ## Dépendances
 Ce projet utilise la bibliothèque graphique de l'IUT. Assurez-vous qu'elle est correctement installée et liée lors de la compilation.
-
-## Collaboration
-Le code source est disponible sur le serveur Gitea du département dans le dépôt privé nommé `SAE11_2023`.
