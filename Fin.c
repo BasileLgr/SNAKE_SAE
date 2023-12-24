@@ -46,6 +46,7 @@ int fin (int score, int position_minute, int position_seconde){
                 };
             }
             if (ToucheEnAttente()) {
+                /*Quitter*/
                 if (Touche() == XK_Escape) {
                     FermerGraphique();
                     exit(EXIT_SUCCESS);

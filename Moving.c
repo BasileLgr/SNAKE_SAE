@@ -5,6 +5,7 @@
 #include "Fin.h"
 
 void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int positionTete[200][2], int *Direction, int *CompteurPommes, int *Score, char tableauScore[10], int position_seconde, int position_minute, int *longeurSerpent) {
+    /* Variables pour le déplacement */
     int nouvelleLigne = positionTete[0][0];
     int nouvelleColonne = positionTete[0][1];
     int derniereLigne = positionTete[*longeurSerpent-1][0];
@@ -66,7 +67,8 @@ void deplacerSerpent(int tableau[NB_LIGNES][NB_COLONNES], int positionTete[200][
         }
         
         tableau[positionTete[0][1]][positionTete[0][0]] = 2;
-            /*affichage de la tete du serpent en fonction de la direction*/
+
+            /*Affichage de la tete du serpent en fonction de la direction*/
         if(*Direction==GAUCHE) {
             ChargerImage("./Images/TETESERPENTCARREG.png", DECALAGE_BANDE_NOIR_GAUCHE + positionTete[0][0] * TAILLE_CASE,
                      DECALAGE_BANDE_NOIR_HAUT + positionTete[0][1] * TAILLE_CASE, 0, 0, TAILLE_CASE, TAILLE_CASE);

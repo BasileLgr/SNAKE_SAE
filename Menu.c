@@ -35,11 +35,14 @@ int menu(void) {
                 return EXIT_QUIT;
             };
         }
+
         if (ToucheEnAttente()) {
+            /*Quitter*/
             if (Touche() == XK_Escape) {
                 FermerGraphique();
                 return EXIT_QUIT;
             }
+            /*Jouer*/
             else if ((Touche() == XK_Return)||(Touche() == XK_space)) {
                 FermerGraphique();
                 return EXIT_PLAY;
